@@ -2,23 +2,14 @@ import express from "express";
 import cors from "cors";
 import SpotifyWebApi from "spotify-web-api-node"
 import querystring from 'querystring';
+import axios from "axios";
 const app = express()
 
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
 
-// app.get('/', (req, res) => {
-//   res.send({ message: 'Hello API' });
-// });
-//
-// app.listen(port, host, () => {
-//   console.log(`[ ready ] http://${host}:${port}`);
-// });
-
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-
-let sdk;
 
 app.use(cors({
   origin: '*'
@@ -95,65 +86,46 @@ app.get('/callback', function(req, res) {
   }
 });
 
-app.get("/beatles", async (req, res) => {
-  const { token } = req.query
+app.get("/artist", async (req, res) => {
+  const {token} = req.headers;
+  const { search} = req.query;
+
+  if (!token) {
+    throw new Error('Token not provided.')
+  }
+
+  if (!search) {
+    throw new Error('Search term not provided.')
+  }
 
   const spotifyApi = new SpotifyWebApi({
     accessToken: token as string,
-  })
+  });
 
-  const response = await spotifyApi.search("The Beatles", ["artist"]) as any;
+  const {body} = await spotifyApi.search(search as string, ["artist"]) as any;
 
-  // const response = items.items.map((item: any) => {
-  //   return {
-  //     name: item.name,
-  //     followers: item.followers.total,
-  //     popularity: item.popularity,
-  //   };
-  // });
-
-  res.json(response)
+  res.json({data: body.artists})
 })
 
-// app.get('/login', (req, res) => {
-//     const api = SpotifyApi.withUserAuthorization(
-//         "331d502b9fb242c8b7a1cb8b2ae23f98",
-//         "http://localhost:8080/auth",
-//     );
-//
-//     api.currentUser.profile();
-// })
+app.get("/user/playlists", async (req, response) => {
+  const {authorization} = req.headers;
 
-// app.post('/auth', (req, res) => {
-//     let data = req.body;
-//     sdk = SpotifyApi.withAccessToken("331d502b9fb242c8b7a1cb8b2ae23f98", data);
-//
-//     res.redirect('http://localhost:3000');
-// });
-//
-// const APIController = async () => {
-//     const result = await spotifyApi.clientCredentialsGrant({
-//         client_id: "331d502b9fb242c8b7a1cb8b2ae23f98",
-//         client_secret: "a0fcd7a90430488f9b25ae6551ff15b5"
-//     });
-//
-//     console.log(result);
-//     return result;
-// }
-//
-// app.get('/beatles', () => APIController())
+  if (!authorization) {
+    throw new Error('Token not provided.')
+  }
 
-// app.get('/beatles', (req, res) => {
-//     sdk = SpotifyWebApi.withClientCredentials("331d502b9fb242c8b7a1cb8b2ae23f98", "a0fcd7a90430488f9b25ae6551ff15b5");
-//
-//     const getSearch = async () => {
-//         return await sdk.search("The Beatles", ["artist"]);
-//     }
-//
-//     const i = getSearch();
-//
-//     res.send(i);
-// });
+  axios.get("https://api.spotify.com/v1/me/playlists", {
+    headers: { authorization}
+  })
+      .then(res => {
+        console.log(res);
+
+        response.json({data: res.data})
+      })
+      .catch((e) => {
+        console.log(e);
+      })
+})
 
 app.listen(process.env.PORT, () => {
   console.log(`Example app listening on port ${port}`)

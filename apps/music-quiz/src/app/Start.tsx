@@ -5,13 +5,19 @@ import {useAuth} from "./Hooks/useAuth";
 
 export const Start = () => {
 	const {token} = useAuth({});
-	const http = useHttp();
 	const [data, setData] = useState(null as any);
 
 	useEffect(() => {
 		if (token) {
-			axios.get(`http://localhost:3000/beatles?token=${token}`)
-				.then(res => setData(res.data.body))
+			axios.get(`http://localhost:3000/artist`, {
+				headers: {
+					token: token,
+				},
+				params: {
+					search: 'Stan',
+				}
+			})
+				.then(res => setData(res.data.data))
 				.catch((e) => {
 					console.log(e);
 				})
@@ -24,9 +30,9 @@ export const Start = () => {
 
 	return (
 		<div>
-			{data.artists.items.map((artist: any) => (
+			{data.items.map((artist: any) => (
 				<div key={artist.id}>
-					{artist.uri}
+					{artist.name}
 				</div>
 				))}
 		</div>
