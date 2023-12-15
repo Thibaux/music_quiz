@@ -63,11 +63,27 @@ app.post("/refresh", async (req, res) => {
   }
 })
 
-// app.get("/lyrics", async (req, res) => {
-//   const { artist, track } = req.query
-//   const lyrics = (await lyricsFinder(artist, track)) || "No Lyrics Found"
-//   res.json({ lyrics })
-// })
+app.get("/beatles", async (req, res) => {
+  // const { artist, track } = req.query
+
+  const spotifyApi = new SpotifyWebApi({
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    redirectUri: process.env.REDIRECT_URI,
+  })
+
+  const items = await spotifyApi.search("The Beatles", ["artist"]) as any;
+
+  const response = items.artists.items.map((item: any) => {
+    return {
+      name: item.name,
+      followers: item.followers.total,
+      popularity: item.popularity,
+    };
+  });
+
+  res.json({ response  })
+})
 
 // app.get('/login', (req, res) => {
 //     const api = SpotifyApi.withUserAuthorization(
@@ -98,7 +114,7 @@ app.post("/refresh", async (req, res) => {
 // app.get('/beatles', () => APIController())
 
 // app.get('/beatles', (req, res) => {
-//     sdk = SpotifyApi.withClientCredentials("331d502b9fb242c8b7a1cb8b2ae23f98", "a0fcd7a90430488f9b25ae6551ff15b5");
+//     sdk = SpotifyWebApi.withClientCredentials("331d502b9fb242c8b7a1cb8b2ae23f98", "a0fcd7a90430488f9b25ae6551ff15b5");
 //
 //     const getSearch = async () => {
 //         return await sdk.search("The Beatles", ["artist"]);
