@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import SpotifyWebApi from "spotify-web-api-node"
+import querystring from 'querystring';
 const app = express()
 
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
@@ -18,6 +19,10 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 let sdk;
+
+app.use(cors({
+  origin: '*'
+}));
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -38,7 +43,6 @@ app.post("/login", async (req, res) => {
 
     res.json({ access_token, refresh_token, expires_in })
   } catch (err) {
-    console.log(err)
     res.sendStatus(400)
   }
 })
@@ -63,26 +67,52 @@ app.post("/refresh", async (req, res) => {
   }
 })
 
+app.get('/callback', function(req, res) {
+  const code = req.query.code || null;
+  const state = req.query.state || null;
+
+  if (state === null) {
+    res.redirect('/#' +
+        querystring.stringify({
+          error: 'state_mismatch'
+        }));
+  } else {
+    const token =  Buffer.from(process.env.CLIENT_ID + ':' + process.env.CLIENT_SECRET).toString('base64')
+
+    const authOptions = {
+      url: 'https://accounts.spotify.com/api/token',
+      form: {
+        code: code,
+        redirect_uri: process.env.REDIRECT_URI,
+        grant_type: 'authorization_code'
+      },
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Basic ' + token
+      },
+      json: true
+    };
+  }
+});
+
 app.get("/beatles", async (req, res) => {
-  // const { artist, track } = req.query
+  const { token } = req.query
 
   const spotifyApi = new SpotifyWebApi({
-    clientId: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    redirectUri: process.env.REDIRECT_URI,
+    accessToken: token as string,
   })
 
-  const items = await spotifyApi.search("The Beatles", ["artist"]) as any;
+  const response = await spotifyApi.search("The Beatles", ["artist"]) as any;
 
-  const response = items.artists.items.map((item: any) => {
-    return {
-      name: item.name,
-      followers: item.followers.total,
-      popularity: item.popularity,
-    };
-  });
+  // const response = items.items.map((item: any) => {
+  //   return {
+  //     name: item.name,
+  //     followers: item.followers.total,
+  //     popularity: item.popularity,
+  //   };
+  // });
 
-  res.json({ response  })
+  res.json(response)
 })
 
 // app.get('/login', (req, res) => {
