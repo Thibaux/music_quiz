@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {useSpotifyHttp} from "./useSpotifyHttp";
+import axios from "axios";
 
 export const Playlists = () => {
-	const http = useSpotifyHttp();
 	const [data, setData] = useState(null);
 
 	useEffect(() => {
-		http.get('users/')
+		axios.get(`https://api.spotify.com/v1/`)
 			.then(res => setData(res.data))
 	}, [])
 

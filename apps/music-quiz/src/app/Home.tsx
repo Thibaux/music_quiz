@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useHttp} from "./useHttp";
+import {useHttp} from "./Hooks/useHttp";
 import axios from "axios";
 
 export const Home = () => {

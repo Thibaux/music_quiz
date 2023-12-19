@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import {useHttp} from "./useHttp";
 import {useAuth} from "./Hooks/useAuth";
 
 export const Start = () => {
