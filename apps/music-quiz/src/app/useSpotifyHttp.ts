@@ -1,7 +1,8 @@
 import axios from "axios";
 import stringify from "query-string"
+import {useAuth} from "./Hooks/useAuth";
 
-export const useHttp = () => {
+export const useSpotifyHttp = () => {
 	const get = (url: string, payload: any = {}, config: any = {}, transformResponse?: any) => {
 		return request("GET", url, payload);
 	};
@@ -18,10 +19,12 @@ export const useHttp = () => {
 }
 
 const request = (method: string, url: string, payload: any) => {
+	const {token} = useAuth({});
+
 	const instance = axios.create({
-		baseURL: process.env.REACT_APP_BASE_URL,
+		baseURL: 'https://api.spotify.com/v1/',
 		headers: {
-			Authorization: `Bearer ${localStorage.getItem("token")}`,
+			Authorization: `Bearer ${token}`,
 			"X-Account-Id": localStorage.getItem("currentAccountId"),
 			"Time-Zone": Intl.DateTimeFormat().resolvedOptions().timeZone,
 		},
