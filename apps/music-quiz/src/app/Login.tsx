@@ -11,7 +11,6 @@ export const Login = () => {
 			<div onClick={() => window.location.href = url}>
 				<button>click hrere</button>
 			</div>
-			bitches
 		</div>
 	)
 }
