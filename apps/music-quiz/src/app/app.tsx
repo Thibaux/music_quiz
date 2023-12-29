@@ -1,28 +1,33 @@
-import NxWelcome from './nx-welcome';
+import React from "react";
+import {Route, Routes} from "react-router";
+import {Login} from "./Login";
+import {Home} from "./Home";
+import {Start} from "./Start";
+import {Playlists} from "./Playlists";
+import WelcomeComponent from "../../../../ui/src/lib/components/welcomeComponent";
 import { Ui } from "@music-quiz/ui";
-import { Route, Routes } from 'react-router-dom';
-import WelcomeComponent from "../../../../ui/src/lib/Components/welcomeComponent";
-import {Home} from "../Pages/Home";
-import {Login} from "../Pages/Login";
 
 
 function Welcome() {
-    return <WelcomeComponent/>
+  return <WelcomeComponent/>
 }
 
 function Ui2() {
-    return <Ui/>
+  return <Ui/>
 }
 
-export function App() {
-  return (
-    <Routes>
-        <Route path={"/home"} element={<Home/>}></Route>
-        <Route path={"/"} element={Welcome()}></Route>
-        <Route path={"/login"} element={<Login/>}></Route>
-        <Route path={"/ui"} element={Ui2()}></Route>
-    </Routes>
-  );
-}
+const App = () => {
+    return (
+        <Routes>
+            <Route path="/" element={<Login/>}/>
+            <Route path="/home" element={<Home/>}/>
+            <Route path="/start" element={<Start/>}/>
+            <Route path="/playlists" element={<Playlists/>}/>
+
+            <Route path={"/welcome"} element={Welcome()}></Route>
+            <Route path={"/ui"} element={Ui2()}></Route>
+        </Routes>
+    );
+};
 
 export default App;
