@@ -2,7 +2,7 @@ import SpotifyWebApi from "spotify-web-api-node";
 import { Request, Response } from "express";
 import querystring from "querystring";
 
-export const login = async (req: Request, res: Response) => {
+export const Login = async (req: Request, res: Response) => {
 	const {code} = req.body;
 	const spotifyApi = new SpotifyWebApi({
 		redirectUri: process.env.REDIRECT_URI,
@@ -21,7 +21,7 @@ export const login = async (req: Request, res: Response) => {
 	}
 };
 
-export const refresh = async (req: Request, res: Response) => {
+export const Refresh = async (req: Request, res: Response) => {
 	const {refreshToken} = req.body;
 	const spotifyApi = new SpotifyWebApi({
 		redirectUri: process.env.REDIRECT_URI,
@@ -41,7 +41,7 @@ export const refresh = async (req: Request, res: Response) => {
 	}
 };
 
-export const callback = (req: Request, res: Response) => {
+export const Callback = (req: Request, res: Response) => {
 	const code = req.query.code || null;
 	const state = req.query.state || null;
 

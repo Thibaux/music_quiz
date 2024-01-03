@@ -1,10 +1,10 @@
 import express from "express";
-import { callback, login, refresh } from "src/Http/Controllers/Auth/AuthController";
+import { Callback, Login, Refresh } from "../../Controllers/Auth/AuthController";
 
 const AuthRouter = express.Router();
 
-AuthRouter.post('/login', login);
-AuthRouter.post('/refresh', refresh);
-AuthRouter.get('/callback', callback);
+AuthRouter.post('/login', Login);
+AuthRouter.post('/refresh', Refresh);
+AuthRouter.get('/callback', Callback);
 
 export default AuthRouter;

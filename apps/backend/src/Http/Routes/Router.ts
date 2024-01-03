@@ -1,7 +1,7 @@
 import express from "express";
-import AuthRouter from "src/Http/Routes/Auth/Auth";
-import UserRouter from "src/Http/Routes/User/User";
-import HealthRouter from "src/Http/Routes/Health/Health";
+import UserRouter from "./User/User";
+import HealthRouter from "./Health/Health";
+import AuthRouter from "./Auth/Auth";
 
 const Router = express.Router();
 

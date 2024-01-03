@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import SpotifyWebApi from 'spotify-web-api-node';
-import Router from "src/Http/Routes/Router";
+import Router from './Http/Routes/Router';
 
 const app = express();
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;

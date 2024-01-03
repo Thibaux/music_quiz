@@ -1,5 +1,5 @@
 import express from "express";
-import UserPlaylistsRouter from "src/Http/Routes/User/UserPlaylists";
+import UserPlaylistsRouter from "./UserPlaylists";
 
 const UserRouter = express.Router();
 
