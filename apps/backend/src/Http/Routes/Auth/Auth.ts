@@ -1,5 +1,5 @@
 import express from "express";
-import { callback, login, refresh } from "src/Http/Controllers/Auth/Auth";
+import { callback, login, refresh } from "src/Http/Controllers/Auth/AuthController";
 
 const AuthRouter = express.Router();
 

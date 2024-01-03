@@ -1,5 +1,5 @@
 import express from "express";
-import { Index } from "src/Http/Controllers/User/UserPlaylists";
+import { Index } from "src/Http/Controllers/User/UserPlaylistsController";
 
 const UserPlaylistsRouter = express.Router();
 
