@@ -5,6 +5,8 @@
   "scripts": {},
   "private": true,
   "dependencies": {
+    "@mantine/core": "^7.4.0",
+    "@mantine/hooks": "^7.4.0",
     "@nrwl/react": "^17.2.8",
     "@radix-ui/themes": "^2.0.3",
     "@swc/helpers": "~0.5.2",
@@ -67,6 +69,8 @@
     "jsdom": "~22.1.0",
     "nx": "v17.2.5",
     "postcss": "^8.4.32",
+    "postcss-preset-mantine": "^1.12.3",
+    "postcss-simple-vars": "^7.0.1",
     "prettier": "^2.6.2",
     "sass": "^1.69.7",
     "tailwindcss": "^3.4.0",
