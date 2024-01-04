@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Routes } from 'react-router';
-import { Login } from './Domains/Auth/Login';
-import { Home } from './Domains/Home/Home';
-import { Start } from './Start';
-import { Playlists } from './Playlists';
-import { Layout } from '../Layout/Layout';
+import { Login } from '../../Domains/Auth/Login';
+import { Home } from '../../Domains/Home/Home';
+import { Start } from '../../Start';
+import { Playlists } from '../../Playlists';
+import { Layout } from '../../Layout/Layout';
 
-const App = () => {
+const Router = () => {
     return (
         <Layout>
             <Routes>
@@ -25,4 +25,4 @@ const App = () => {
     );
 };
 
-export default App;
+export default Router;
