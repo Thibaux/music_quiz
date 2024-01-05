@@ -6,5 +6,5 @@ export const Index = async (req: Request, res: Response) => {
 
     const mapped = all().map((handler) => handler.asResponse());
 
-    res.json({ quizzes: mapped });
+    res.json({ data: mapped });
 };

@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { PageContainer } from '../../Layout/Page/PageContainer';
 import { HomeCard } from '../../Components/Ui/Cards/HomeCard';
 import { useHttp } from '../../Hooks/useHttp';
+import { HomeCardType } from '../../../../../lib/Shared/Types/Domains/Home/Types';
 
 export const Home = () => {
-    const navigate = useNavigate();
     const http = useHttp();
-    const code = new URLSearchParams(window.location.search).get('code');
+    const url = new URLSearchParams(window.location.search);
     const [data, setData] = useState(null as any);
 
     useEffect(() => {
-        http.post('http://localhost:3000/login', { code }).then((res) => {
-            localStorage.setItem('token', res.data.access_token);
-        });
-    }, [code]);
+        http.post(`login`, { code: url.get('code') })
+            .then((res) => {
+                localStorage.setItem('token', res.data.access_token);
+                url.delete('code');
+            })
+            .catch((error) => {
+                console.log(error.request);
+            });
+    }, [url.get('code')]);
 
-    // useEffect(() => {
-    //     http.get('http://localhost:3000/quizzes').then((res) => setData(res.data));
-    // }, []);
-
-    const handleQuizClick = () => navigate('/start');
+    useEffect(() => {
+        http.get('quizzes').then((res) => setData(res.data.data));
+    }, []);
 
     if (!data) {
         return <div>Loading...</div>;
@@ -28,8 +30,8 @@ export const Home = () => {
 
     return (
         <PageContainer>
-            {data.quizzes.map((quiz: any) => (
-                <HomeCard onClick={handleQuizClick} text={''} image={''} />
+            {data.map((quiz: HomeCardType) => (
+                <HomeCard key={quiz.id} {...quiz} />
             ))}
         </PageContainer>
     );

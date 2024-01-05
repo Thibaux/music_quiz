@@ -1,39 +1,33 @@
 import React from 'react';
-import { Title } from '../Title';
+import { Title } from '../Typography/Title';
+import { HomeCardType } from '../../../../../../lib/Shared/Types/Domains/Home/Types';
+import { useNavigate } from 'react-router-dom';
+import { Text } from '../Typography/Text';
+import { Icon } from '../Icon/Icon';
+import { Divider } from '../Divider';
 
-type Props = {
-    image: string;
-    text: string;
-    onClick: () => void;
-};
-
-export const HomeCard = (props: Props) => {
-    const { image, text, onClick } = props;
+export const HomeCard = (props: HomeCardType) => {
+    const navigate = useNavigate();
+    const { icon, title, description, url, rules } = props;
 
     return (
         <div
-            onClick={onClick}
+            onClick={() => navigate(url)}
             className={
-                'sm:w-[40rem] md:w-[40rem] w-10/12 h-80 rounded-2xl cursor-pointer hover:scale-[1.01] duration-300 bg-slate-100 text-gray-900'
+                'sm:w-96 w-10/12 h-auto rounded-2xl cursor-pointer hover:scale-[1.01] duration-300 bg-slate-100 text-gray-900 p-4'
             }
         >
-            <div className={'flex h-[40%]'}>
-                <img
-                    src={image}
-                    alt="image"
-                    className={'rounded-t-2xl'}
-                    style={{
-                        display: 'block',
-                        objectFit: 'cover',
-                        width: '100%',
-                        height: '100%',
-                        backgroundColor: 'var(--gray-5)',
-                        overflow: 'hidden',
-                    }}
-                />
-            </div>
-            <div className={'flex h-[60%] justify-center items-center'}>
-                <Title text={text} />
+            <div className={'flex flex-col h-auto'}>
+                <div className={'flex items-center gap-2 mb-2'}>
+                    <Icon type={icon}></Icon>
+                    <Title text={title} className={'items-start'} />
+                </div>
+
+                <div className={'flex flex-col gap-2'}>
+                    <Text>{description}</Text>
+                    <Divider className={'pt-4'} />
+                    <Text weight={'bold'}>{rules}</Text>
+                </div>
             </div>
         </div>
     );

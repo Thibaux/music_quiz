@@ -1,7 +1,7 @@
 import { IntroHandler } from './Types/IntroHandler';
 import { OutroHandler } from './Types/OutroHandler';
 
-const QuizzesEnum = {
+export const QuizzesEnum = {
     INTROS: 'INTROS',
     OUTROS: 'OUTROS',
 };

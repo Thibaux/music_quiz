@@ -1,5 +1,5 @@
 import React from 'react';
-import { Title } from '../Title';
+import { Title } from '../Typography/Title';
 
 type Props = {
     image: string;
@@ -33,7 +33,7 @@ export const Card = (props: Props) => {
                 />
             </div>
             <div className={'flex h-[35%]'}>
-                <Title text={text} />
+                <Title text={text} className={'justify-center sm:p-5 p-2 px-5'} />
             </div>
         </div>
     );

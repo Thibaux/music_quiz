@@ -1,5 +1,13 @@
 import React from 'react';
 
 export const PageContainer = ({ children }: { children: React.ReactNode }) => {
-    return <div className={'flex flex-col items-center justify-start gap-20 pt-40'}>{children}</div>;
+    return (
+        <div
+            className={
+                'flex sm:flex-row flex-col lg:w-full w-10/12 m-auto sm:items-start items-center sm:justify-center justify-start gap-20 pt-40'
+            }
+        >
+            {children}
+        </div>
+    );
 };
