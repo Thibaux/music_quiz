@@ -8,21 +8,18 @@
     "@mantine/core": "^7.4.0",
     "@mantine/hooks": "^7.4.0",
     "@nrwl/react": "^17.2.8",
-    "@radix-ui/themes": "^2.0.3",
     "@swc/helpers": "~0.5.2",
     "axios": "^1.6.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "~4.18.1",
-    "node-sass": "^9.0.0",
     "query-string": "^8.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "^6.21.0",
     "spotify-web-api-node": "^5.0.2",
     "tslib": "^2.3.0",
-    "typography": "^0.16.24",
-    "typography-theme-github": "^0.16.19"
+    "typography": "^0.16.24"
   },
   "devDependencies": {
     "@nx/cypress": "v17.2.5",

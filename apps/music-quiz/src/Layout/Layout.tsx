@@ -1,12 +1,6 @@
 import React from 'react';
-import Typography from 'typography';
-// @ts-ignore
-import githubTheme from 'typography-theme-github';
 import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
-
-const typography = new Typography(githubTheme);
-typography.injectStyles();
 
 type Props = {
     children: React.ReactNode;
