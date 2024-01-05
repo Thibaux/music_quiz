@@ -32,7 +32,7 @@ export const Card = (props: Props) => {
                     }}
                 />
             </div>
-            <div className={'flex h-[35%] justify-center items-center'}>
+            <div className={'flex h-[35%]'}>
                 <Title text={text} />
             </div>
         </div>

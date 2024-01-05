@@ -21,9 +21,7 @@ export const Layout = (props: Props) => {
                 headings: { fontFamily: 'Comfortaa, sans-serif' },
             }}
         >
-            <main className={'flex w-screen h-screen bg-slate-500'}>
-                <div className={'w-full h-full'}>{props.children}</div>
-            </main>
+            <div className={'bg-slate-500 overflow-hidden'}>{props.children}</div>
         </MantineProvider>
     );
 };
