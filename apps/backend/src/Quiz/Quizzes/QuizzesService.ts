@@ -6,17 +6,25 @@ export const QuizzesEnum = {
     OUTROS: 'OUTROS',
 };
 
-export class QuizzesService {
-    all = () => {
-        return [new IntroHandler(), new OutroHandler()];
+export const QuizzesService = () => {
+    const all = () => {
+        return [IntroHandler(), OutroHandler()];
     };
 
-    mapped = (): {} => {
+    const mapped = (): {} => {
         return {
-            [QuizzesEnum.INTROS]: new IntroHandler(),
-            [QuizzesEnum.OUTROS]: new OutroHandler(),
+            [QuizzesEnum.INTROS]: IntroHandler(),
+            [QuizzesEnum.OUTROS]: OutroHandler(),
         };
     };
 
-    get = () => {};
-}
+    const get = (type: string) => {
+        return mapped()[type];
+    };
+
+    return {
+        all,
+        mapped,
+        get,
+    };
+};

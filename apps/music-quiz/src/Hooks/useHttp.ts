@@ -2,15 +2,30 @@ import axios from 'axios';
 import stringify from 'query-string';
 
 export const useHttp = () => {
-    const get = (url: string, payload: any = {}, config: any = {}, transformResponse?: any) => {
+    const get = (
+        url: string,
+        payload: any = {},
+        config: any = {},
+        transformResponse?: any
+    ) => {
         return request('GET', url, payload);
     };
 
-    const post = (url: string, payload: any = {}, config: any = {}, transformResponse?: any) => {
+    const post = (
+        url: string,
+        payload: any = {},
+        config: any = {},
+        transformResponse?: any
+    ) => {
         return request('POST', url, payload);
     };
 
-    const put = (url: string, payload: any = {}, config: any = {}, transformResponse?: any) => {
+    const put = (
+        url: string,
+        payload: any = {},
+        config: any = {},
+        transformResponse?: any
+    ) => {
         return request('PUT', url, payload);
     };
 
@@ -26,6 +41,9 @@ const request = (method: string, url: string, payload: any) => {
         url: url.replace(/\/$/, ''),
         method,
         params: method == 'GET' ? payload : {},
+        headers: {
+            Authorization: localStorage.getItem('token'),
+        },
         paramsSerializer: (params) =>
             stringify.stringify(params, {
                 arrayFormat: 'bracket',

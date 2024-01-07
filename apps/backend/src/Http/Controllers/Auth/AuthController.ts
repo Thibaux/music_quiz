@@ -1,6 +1,7 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 import { Request, Response } from 'express';
 import querystring from 'querystring';
+import { Auth } from '../../../Core/Authentication/TokenDto';
 
 export const Login = async (req: Request, res: Response) => {
     const { code } = req.body;
@@ -11,13 +12,12 @@ export const Login = async (req: Request, res: Response) => {
     });
 
     try {
-        const {
-            body: { access_token, refresh_token, expires_in },
-        } = await spotifyApi.authorizationCodeGrant(code);
+        const { body } = await spotifyApi.authorizationCodeGrant(code);
 
-        console.log(access_token);
+        // Store the token in the backend session
+        Auth.tokenDTO = { ...body };
 
-        res.json({ access_token, refresh_token, expires_in });
+        res.json(body);
     } catch (err) {
         res.sendStatus(400);
     }
@@ -55,7 +55,9 @@ export const Callback = (req: Request, res: Response) => {
                 })
         );
     } else {
-        const token = Buffer.from(process.env.CLIENT_ID + ':' + process.env.CLIENT_SECRET).toString('base64');
+        const token = Buffer.from(
+            process.env.CLIENT_ID + ':' + process.env.CLIENT_SECRET
+        ).toString('base64');
 
         const authOptions = {
             url: 'https://accounts.spotify.com/api/token',

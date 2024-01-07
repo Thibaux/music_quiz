@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import Router from './Http/Routes/Router';
-import { ErrorHandler } from './Http/Errors/ErrorHandler';
 
 const app = express();
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
@@ -17,7 +16,6 @@ app.use(
 );
 
 app.use(Router);
-app.use(ErrorHandler);
 
 // app.get('/artist', async (req, res) => {
 // 	const {token} = req.headers;

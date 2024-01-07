@@ -21,7 +21,7 @@ export const Home = () => {
     }, [url.get('code')]);
 
     useEffect(() => {
-        http.get('quizzes').then((res) => setData(res.data.data));
+        http.get('quiz').then((res) => setData(res.data.data));
     }, []);
 
     if (!data) {

@@ -1,13 +1,13 @@
 import React from 'react';
 import { Title } from '../Typography/Title';
 import { HomeCardType } from '../../../../../../lib/Shared/Types/Domains/Home/Types';
-import { useNavigate } from 'react-router-dom';
 import { Text } from '../Typography/Text';
 import { Icon } from '../Icon/Icon';
 import { Divider } from '../Divider';
+import { useRouting } from '../../../Hooks/useRouting';
 
 export const HomeCard = (props: HomeCardType) => {
-    const navigate = useNavigate();
+    const { navigate } = useRouting();
     const { icon, title, description, url, rules } = props;
 
     return (
