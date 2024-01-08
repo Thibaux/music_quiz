@@ -1,17 +1,115 @@
+import Button, {ButtonStyle} from "./buttons/Button";
+import Card, {CardStyle} from "./cards/Card";
+import Navbar from "./Navbar";
+
 type Props = {}
 export default function WelcomeComponent(props: Props) {
 
-    return (
+  return (
+    <div>
+        <Navbar/>
         <div className={'flex flex-col justify-center items-center gap-3'}>
-            <div className={'flex w-[80vw] bg-green-400 h-16 rounded-lg justify-center items-center'}>
-                <p className={'text-white text-2xl'}>Epic Music Quiz</p>
-            </div>
-            <div className={'flex w-[40vw] bg-pink-200 h-16 rounded-lg justify-center items-center'}>
-                <p className={'text-white text-lg'}>Piew pipiepipiepiewww</p>
-            </div>
-            <div>
-                <button className={'bg-red-200 rounded-lg p-3 w-16'} onClick={() => console.log('oi')}>Oi</button>
-            </div>
+            <Card
+                card_style={CardStyle.Primary}
+                gradient={true}
+                label={"hello"}
+            >
+                <div className={'flex flex-col gap-3'}>
+                    <Button
+                        label={'Click me'}
+                        onClick={() => console.log('Oi')}
+                        button_style={ButtonStyle.Primary}
+                    />
+                    <Button
+                        label={'Click me'}
+                        onClick={() => console.log('Oi')}
+                        button_style={ButtonStyle.Warning}
+                    />
+                    <Button
+                        label={'Click me'}
+                        onClick={() => console.log('Oi')}
+                        button_style={ButtonStyle.Danger}
+                    />
+                </div>
+                <div className={'flex flex-col gap-3'}>
+                    <Button
+                        label={'Click me'}
+                        onClick={() => console.log('Oi')}
+                        button_style={ButtonStyle.Primary}
+                    />
+                    <Button
+                        label={'Click me'}
+                        onClick={() => console.log('Oi')}
+                        button_style={ButtonStyle.Warning}
+                    />
+                    <Button
+                        label={'Click me'}
+                        onClick={() => console.log('Oi')}
+                        button_style={ButtonStyle.Danger}
+                    />
+                </div>
+
+            </Card>
+            <Card
+                card_style={CardStyle.Warning}
+            >
+                <Button
+                    label={'Click me'}
+                    onClick={() => console.log('Oi')}
+                    button_style={ButtonStyle.Primary}
+                />
+                <Button
+                    label={'Click me'}
+                    onClick={() => console.log('Oi')}
+                    button_style={ButtonStyle.Warning}
+                />
+                <Button
+                    label={'Click me'}
+                    onClick={() => console.log('Oi')}
+                    button_style={ButtonStyle.Danger}
+                />
+            </Card>
+            <Card
+                card_style={CardStyle.Danger}
+            >
+                <Button
+                    label={'Click me'}
+                    onClick={() => console.log('Oi')}
+                    button_style={ButtonStyle.Primary}
+                />
+                <Button
+                    label={'Click me'}
+                    onClick={() => console.log('Oi')}
+                    button_style={ButtonStyle.Warning}
+                />
+                <Button
+                    label={'Click me'}
+                    onClick={() => console.log('Oi')}
+                    button_style={ButtonStyle.Danger}
+                />
+            </Card>
+            <Card
+                card_style={CardStyle.Secondary}
+            >
+                <div className={'flex flex-col gap-3'}>
+                    <Button
+                        label={'Click me'}
+                        onClick={() => console.log('Oi')}
+                        button_style={ButtonStyle.Primary}
+                    />
+                    <Button
+                        label={'Click me'}
+                        onClick={() => console.log('Oi')}
+                        button_style={ButtonStyle.Warning}
+                    />
+                    <Button
+                        label={'Click me'}
+                        onClick={() => console.log('Oi')}
+                        button_style={ButtonStyle.Secondary}
+                    />
+                </div>
+            </Card>
         </div>
-    )
+    </div>
+  )
 }

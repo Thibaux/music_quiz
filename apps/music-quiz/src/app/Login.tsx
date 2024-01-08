@@ -1,4 +1,5 @@
 import React from "react";
+import Navbar from "../../../../ui/src/lib/Components/Navbar";
 
 export const Login = () => {
 	const clientId = "331d502b9fb242c8b7a1cb8b2ae23f98";
@@ -8,6 +9,7 @@ export const Login = () => {
 
 	return (
 		<div>
+			<Navbar/>
 			<div onClick={() => window.location.href = url}>
 				<button>click hrere</button>
 			</div>

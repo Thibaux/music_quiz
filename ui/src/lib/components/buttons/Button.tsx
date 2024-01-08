@@ -1,19 +1,47 @@
-export type Props = {
+import cn from "classnames";
 
+export enum ButtonStyle {
+    Primary = "primary",
+    Secondary = "secondary",
+    Success = "success",
+    Warning = "warning",
+    Danger = "danger"
 }
+
+export type Props = {
+    label?: string;
+    onClick?: any;
+    button_style: ButtonStyle;
+    className?: string;
+}
+
 export default function Button(props: Props) {
+    const {label, onClick, button_style} = props;
+
+    const buttonCn = cn(
+        "rounded-md p-3 shadow-md",
+        {"bg-sky-800 hover:bg-sky-700" : button_style === ButtonStyle.Primary},
+        {"bg-gray-50 hover:bg-gray-100" : button_style === ButtonStyle.Secondary},
+        {"bg-emerald-800 hover:bg-emerald-700" : button_style === ButtonStyle.Success},
+        {"bg-amber-600 hover:bg-amber-500" : button_style === ButtonStyle.Warning},
+        {"bg-rose-800 hover:bg-rose-700" : button_style === ButtonStyle.Danger},
+    );
+
+    const textCn = cn(
+        "text-sm font-light font-mono text-white",
+        {"text-gray-900" : button_style === ButtonStyle.Secondary}
+    );
 
     return (
-        <div className={'flex flex-col justify-center items-center gap-3'}>
-            <div className={'flex w-[80vw] bg-green-400 h-16 rounded-lg justify-center items-center'}>
-                <p className={'text-white text-2xl'}>Epic Music Quiz</p>
-            </div>
-            <div className={'flex w-[40vw] bg-pink-200 h-16 rounded-lg justify-center items-center'}>
-                <p className={'text-white text-lg'}>Piew pipiepipiepiewww</p>
-            </div>
-            <div>
-                <button className={'bg-red-200 rounded-lg p-3 w-16'} onClick={() => console.log('oi')}>Oi</button>
-            </div>
+        <div>
+            <button
+                className={buttonCn}
+                onClick={onClick}
+            >
+                <p className={textCn}>
+                    {label}
+                </p>
+            </button>
         </div>
     )
 }
