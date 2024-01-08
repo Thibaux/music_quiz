@@ -4,7 +4,7 @@ import {Login} from "./Login";
 import {Home} from "./Home";
 import {Start} from "./Start";
 import {Playlists} from "./Playlists";
-import WelcomeComponent from "../../../../ui/src/lib/components/welcomeComponent";
+import WelcomeComponent from "../../../../ui/src/lib/Components/WelcomeComponent";
 import { Ui } from "@music-quiz/ui";
 
 
