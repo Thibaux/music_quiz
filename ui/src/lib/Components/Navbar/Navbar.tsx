@@ -5,14 +5,17 @@ import { IconSize } from '../../../../../lib/Shared/Types/Ui/Icons/Types';
 export default function Navbar() {
     const navItems = [
         {
+            id: 1,
             item: 'Home',
             route: 'home',
         },
         {
+            id: 2,
             item: 'Start',
             route: 'start',
         },
         {
+            id: 3,
             item: 'Welcome',
             route: 'welcome',
         },
@@ -28,7 +31,7 @@ export default function Navbar() {
             </a>
             <ul className="flex w-auto">
                 {navItems.map((navItem) => (
-                    <NavItem {...navItem} />
+                    <NavItem key={navItem.id} {...navItem} />
                 ))}
             </ul>
         </nav>

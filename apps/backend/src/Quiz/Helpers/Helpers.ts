@@ -19,3 +19,15 @@ export const getRandomItemsFromArray = (array: any[], n: number) => {
 
     return result;
 };
+
+export const serializeToken = (token?: string) => {
+    if (!token || token === '') {
+        return null;
+    }
+
+    if (token.includes('Bearer ')) {
+        return token;
+    } else {
+        return `Bearer ${token}`;
+    }
+};

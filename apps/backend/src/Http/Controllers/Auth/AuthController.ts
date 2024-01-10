@@ -1,7 +1,7 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 import { Request, Response } from 'express';
 import querystring from 'querystring';
-import { Auth } from '../../../Core/Authentication/TokenDto';
+import { Auth } from '../../../Core/Authentication/Auth';
 
 export const Login = async (req: Request, res: Response) => {
     const { code } = req.body;

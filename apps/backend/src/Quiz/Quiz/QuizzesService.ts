@@ -1,20 +1,18 @@
 import { IntroHandler } from './Types/IntroHandler';
 import { OutroHandler } from './Types/OutroHandler';
-
-export const QuizzesEnum = {
-    INTROS: 'INTROS',
-    OUTROS: 'OUTROS',
-};
+import { QuizzesEnum } from './QuizzesEnum';
+import { ChorusHandler } from './Types/ChorusHandler';
 
 export const QuizzesService = () => {
     const all = () => {
-        return [IntroHandler(), OutroHandler()];
+        return [IntroHandler(), OutroHandler(), ChorusHandler()];
     };
 
     const mapped = (): {} => {
         return {
             [QuizzesEnum.INTROS]: IntroHandler(),
             [QuizzesEnum.OUTROS]: OutroHandler(),
+            [QuizzesEnum.CHORUS]: ChorusHandler(),
         };
     };
 
