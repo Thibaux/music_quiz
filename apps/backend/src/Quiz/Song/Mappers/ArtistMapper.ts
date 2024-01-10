@@ -1,4 +1,4 @@
-import { Type as ArtistType } from '../DTO/ArtistDTO';
+import { Type as ArtistType } from '../../DTO/ArtistDTO';
 
 export const ArtistMapper = () => {
     let artist = {} as ArtistType;

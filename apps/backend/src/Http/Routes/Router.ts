@@ -9,8 +9,8 @@ const Router = express.Router();
 
 Router.use(HealthRouter);
 Router.use(AuthRouter);
-Router.use('/user', UserRouter);
+Router.use('/users', UserRouter);
 Router.use('/quiz', QuizRouter);
-Router.use('/song', SongRouter);
+Router.use('/songs', SongRouter);
 
 export default Router;

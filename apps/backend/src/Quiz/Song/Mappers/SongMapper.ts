@@ -1,4 +1,4 @@
-import { Type as SongType } from '../DTO/SongDTO';
+import { Type as SongType } from '../../DTO/SongDTO';
 import { ArtistMapper } from './ArtistMapper';
 
 export const SongMapper = () => {

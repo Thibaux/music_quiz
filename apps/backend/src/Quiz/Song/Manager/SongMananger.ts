@@ -1,4 +1,4 @@
-import { Type as SongType } from '../DTO/SongDTO';
+import { Type as SongType } from '../../DTO/SongDTO';
 
 export const SongManager = {
     songs: [] as SongType[],
@@ -25,4 +25,6 @@ export const SongManager = {
         //     }
         // });
     },
+
+    setSongs: () => {},
 };

@@ -4,10 +4,14 @@
   "license": "MIT",
   "scripts": {},
   "private": true,
+  "prisma": {
+    "seed": "ts-node prisma/seeders/seed.ts"
+  },
   "dependencies": {
     "@mantine/core": "^7.4.0",
     "@mantine/hooks": "^7.4.0",
     "@nrwl/react": "^17.2.8",
+    "@prisma/client": "^5.8.0",
     "@swc/helpers": "~0.5.2",
     "axios": "^1.6.2",
     "classnames": "^2.3.1",
@@ -57,8 +61,8 @@
     "@vitejs/plugin-react": "^4.2.0",
     "@vitest/coverage-v8": "^1.0.4",
     "@vitest/ui": "^1.0.4",
-    "babel-jest": "^29.4.1",
     "autoprefixer": "^10.4.16",
+    "babel-jest": "^29.4.1",
     "esbuild": "^0.19.2",
     "eslint": "~8.48.0",
     "eslint-config-prettier": "^9.0.0",
