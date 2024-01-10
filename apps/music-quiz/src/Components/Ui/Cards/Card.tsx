@@ -14,7 +14,7 @@ export const Card = (props: Props) => {
         <div
             onClick={onClick}
             className={
-                'sm:w-[40rem] md:w-[40rem] w-10/12 h-80 rounded-2xl cursor-pointer hover:scale-[1.01] duration-300 bg-slate-100 hover:bg-[#1Db954] text-gray-900 hover:text-slate-200'
+                'sm:w-[35rem] md:w-[35rem] w-10/12 h-72 rounded-2xl cursor-pointer hover:scale-[1.01] duration-300 bg-slate-100 hover:bg-[#1Db954] text-gray-900 hover:text-slate-200'
             }
         >
             <div className={'flex h-[65%]'}>

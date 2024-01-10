@@ -1,7 +1,7 @@
 import React from 'react';
 import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
-import Navbar from '../../../../ui/src/lib/Components/Navbar';
+import Navbar from '../../../../ui/src/lib/Components/Navbar/Navbar';
 
 type Props = {
     children: React.ReactNode;
@@ -16,8 +16,12 @@ export const Layout = (props: Props) => {
                 headings: { fontFamily: 'Comfortaa, sans-serif' },
             }}
         >
-            <Navbar />
-            <div className={'bg-slate-500 overflow-hidden'}>{props.children}</div>
+            <main className={'h-screen w-full'}>
+                <Navbar />
+                <div className={'bg-slate-500 h-[calc(100vh-50px)] overflow-auto'}>
+                    {props.children}
+                </div>
+            </main>
         </MantineProvider>
     );
 };
