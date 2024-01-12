@@ -10,7 +10,7 @@ export const Home = () => {
     const [data, setData] = useState(null as any);
 
     useEffect(() => {
-        http.post(`login`, { code: url.get('code') })
+        http.post(`auth/login`, { code: url.get('code') })
             .then((res) => {
                 localStorage.setItem('token', res.data.access_token);
                 url.delete('code');

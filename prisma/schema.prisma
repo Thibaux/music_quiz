@@ -8,28 +8,34 @@ datasource db {
 }
 
 model users {
-  id         Int       @id @default(autoincrement())
-  quizzes    quizzes[]
-  email      String    @unique
-  first_name String?
-  last_name  String?
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  id          Int             @id @default(autoincrement())
+  quizzes     quiz_sessions[]
+  email       String          @unique
+  name        String?
+  avatar      String?
+  spotify_id  String          @unique
+  spotify_url String
+  updatedAt   DateTime        @updatedAt
+  createdAt   DateTime        @default(now())
 }
 
-model quizzes {
-  id        Int     @id @default(autoincrement())
-  host_user users   @relation(fields: [users_id], references: [id])
-  users_id  Int
+model quiz_sessions {
+  id        Int      @id @default(autoincrement())
+  host_user users    @relation(fields: [host_id], references: [id])
+  host_id   Int
   songs     songs[]
   type      String
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
 }
 
 model songs {
-  id         Int     @id @default(autoincrement())
-  quiz       quizzes @relation(fields: [quizzes_id], references: [id])
-  quizzes_id Int
-  spotify_id String
-  title      String
-  chorus_url String
+  id              Int           @id @default(autoincrement())
+  quiz_session    quiz_sessions @relation(fields: [quiz_session_id], references: [id])
+  quiz_session_id Int
+  spotify_id      String
+  title           String
+  chorus_url      String
+  updatedAt       DateTime      @updatedAt
+  createdAt       DateTime      @default(now())
 }
