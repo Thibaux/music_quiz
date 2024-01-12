@@ -2,7 +2,7 @@ import { SpotifyClient } from '../../../Core/Http/SpotifyClient';
 import { prisma } from '../../../Core/Prisma/Prisma';
 
 export const UserService = () => {
-    const createUser = async () => {
+    const findOrCreate = async () => {
         const { data } = await SpotifyClient().get(`me`);
 
         let profile = {
@@ -26,13 +26,13 @@ export const UserService = () => {
         });
 
         if (userExists) {
-            return;
+            return userExists;
         }
 
-        await prisma.users.create({
+        return prisma.users.create({
             data: { ...profile },
         });
     };
 
-    return { createUser };
+    return { findOrCreate };
 };

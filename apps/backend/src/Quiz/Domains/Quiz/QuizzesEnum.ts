@@ -1,5 +1,5 @@
 export const QuizzesEnum = {
-    INTROS: 'INTROS',
-    OUTROS: 'OUTROS',
-    CHORUS: 'CHORUS',
+    INTROS: 'intros',
+    OUTROS: 'outros',
+    CHORUS: 'chorus',
 };

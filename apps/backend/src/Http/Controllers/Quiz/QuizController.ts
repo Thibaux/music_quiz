@@ -5,6 +5,8 @@ import { toArray } from '../../../Quiz/Helpers/Helpers';
 import { QuizzesEnum } from '../../../Quiz/Domains/Quiz/QuizzesEnum';
 import { created, error, success } from '../../Helpers/ResponseHelpers';
 import { prisma } from '../../../Core/Prisma/Prisma';
+import QuizSessionService from '../../../Quiz/Domains/QuizSessions/QuizSessionService';
+import { User } from '../../../Quiz/Domains/User/User';
 
 export const Index = async (req: Request, res: Response) => {
     const response = QuizzesService()
@@ -15,9 +17,8 @@ export const Index = async (req: Request, res: Response) => {
 };
 
 export const ShowValidation = param('type')
-    .toUpperCase()
     .isIn(toArray(QuizzesEnum))
-    .withMessage('Type is not one of: ' + toArray(QuizzesEnum).toString().toLowerCase());
+    .withMessage('Type is not one of: ' + toArray(QuizzesEnum).toString());
 
 export const Show = async (req: Request, res: Response) => {
     try {
@@ -25,22 +26,23 @@ export const Show = async (req: Request, res: Response) => {
             .get(req.params.type as string)
             .asDetails(req.params.id);
 
-        return success(details, res);
+        return success(User.user, res);
     } catch (err) {
         return error(err.message, res);
     }
 };
 
 export const CreateValidation = body('type')
-    .toUpperCase()
     .isIn(toArray(QuizzesEnum))
-    .withMessage('Type is not one of: ' + toArray(QuizzesEnum).toString().toLowerCase());
+    .withMessage('Type is not one of: ' + toArray(QuizzesEnum).toString());
 
 export const Create = async (req: Request, res: Response) => {
     const quiz = await prisma.quiz_sessions.create({
         data: {
-            type: req.body.type,
             host_id: 1,
+            type: req.body.type,
+            hash: QuizSessionService.hashGenerator(),
+            config: {},
         },
     });
 

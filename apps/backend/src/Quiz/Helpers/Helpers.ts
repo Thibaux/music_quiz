@@ -1,6 +1,6 @@
 export const randomNum = () => Math.floor(Math.random() * (99 - 1) + 1);
 
-export const toArray = (object: any) => Object.keys(object);
+export const toArray = (object: any) => Object.values(object);
 
 export const getRandomItemsFromArray = (array: any[], n: number) => {
     const result = new Array(n);

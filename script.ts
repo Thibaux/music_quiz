@@ -1,7 +1,7 @@
-import { Songs } from './apps/backend/src/Quiz/Domains/Songs/Songs';
+import { User } from './apps/backend/src/Quiz/Domains/User/User';
 
 async function main() {
-    console.log(new Songs().build());
+    console.log(User.user);
 }
 
 main();
