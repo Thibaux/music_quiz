@@ -4,7 +4,7 @@ import { body, param } from 'express-validator';
 import { toArray } from '../../../Quiz/Helpers/Helpers';
 import { QuizzesEnum } from '../../../Quiz/Domains/Quiz/QuizzesEnum';
 import { created, error, success } from '../../Helpers/ResponseHelpers';
-import prisma from '../../../Core/Prisma/Prisma';
+import { prisma } from '../../../Core/Prisma/Prisma';
 
 export const Index = async (req: Request, res: Response) => {
     const response = QuizzesService()
@@ -37,10 +37,10 @@ export const CreateValidation = body('type')
     .withMessage('Type is not one of: ' + toArray(QuizzesEnum).toString().toLowerCase());
 
 export const Create = async (req: Request, res: Response) => {
-    const quiz = await prisma.quizzes.create({
+    const quiz = await prisma.quiz_sessions.create({
         data: {
             type: req.body.type,
-            users_id: 1,
+            host_id: 1,
         },
     });
 

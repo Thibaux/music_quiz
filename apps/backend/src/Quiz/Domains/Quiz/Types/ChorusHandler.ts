@@ -2,8 +2,8 @@ import { getRandomItemsFromArray, randomNum } from '../../../Helpers/Helpers';
 import { SpotifyClient } from '../../../../Core/Http/SpotifyClient';
 import { Spotify } from '../../../../Config/Spotify';
 import { BaseQuizHandlerType } from '../Base/BaseQuizHandlerType';
-import prisma from '../../../../Core/Prisma/Prisma';
 import { HomeCardType } from '../../../../../../../lib/Types/Domains/Home/Types';
+import { prisma } from '../../../../Core/Prisma/Prisma';
 
 const chorus = {
     id: randomNum(),
@@ -22,7 +22,7 @@ export const ChorusHandler = (): BaseQuizHandlerType => {
     };
 
     const asDetails = async (id: any) => {
-        const quiz = await prisma.quizzes.findFirst(id);
+        const quiz = await prisma.quiz_sessions.findFirst(id);
 
         return {
             ...chorus,
@@ -38,7 +38,7 @@ export const ChorusHandler = (): BaseQuizHandlerType => {
         tracks.map(async (t: any) => {
             await prisma.songs.createMany({
                 data: {
-                    quizzes_id: quizID,
+                    quiz_session_id: quizID,
                     spotify_id: t.track.id,
                     title: t.track.name,
                     chorus_url: t.track.preview_url,

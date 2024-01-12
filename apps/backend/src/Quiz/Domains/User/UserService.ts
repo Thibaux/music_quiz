@@ -1,4 +1,5 @@
 import { SpotifyClient } from '../../../Core/Http/SpotifyClient';
+import { prisma } from '../../../Core/Prisma/Prisma';
 
 export const UserService = () => {
     const createUser = async (spotifyUser: any) => {
@@ -18,9 +19,11 @@ export const UserService = () => {
             profile['avatar'] = data.images.slice(-1)[0].url;
         }
 
-        // await prisma.users.create({
-        //     data: profile,
-        // });
+        console.log({ ...profile });
+
+        await prisma.users.create({
+            data: { ...profile },
+        });
     };
 
     return { createUser };

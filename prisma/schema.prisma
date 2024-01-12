@@ -13,20 +13,20 @@ model users {
   email       String          @unique
   name        String?
   avatar      String?
-  spotify_id  String          @unique
-  spotify_url String
-  updatedAt   DateTime        @updatedAt
-  createdAt   DateTime        @default(now())
+  spotify_id  String
+  spotify_url String?
+  updated_at  DateTime        @updatedAt
+  created_at  DateTime        @default(now())
 }
 
 model quiz_sessions {
-  id        Int      @id @default(autoincrement())
-  host_user users    @relation(fields: [host_id], references: [id])
-  host_id   Int
-  songs     songs[]
-  type      String
-  updatedAt DateTime @updatedAt
-  createdAt DateTime @default(now())
+  id         Int      @id @default(autoincrement())
+  host_user  users    @relation(fields: [host_id], references: [id])
+  host_id    Int
+  songs      songs[]
+  type       String
+  updated_at DateTime @updatedAt
+  created_at DateTime @default(now())
 }
 
 model songs {
@@ -36,6 +36,6 @@ model songs {
   spotify_id      String
   title           String
   chorus_url      String
-  updatedAt       DateTime      @updatedAt
-  createdAt       DateTime      @default(now())
+  updated_at      DateTime      @updatedAt
+  created_at      DateTime      @default(now())
 }

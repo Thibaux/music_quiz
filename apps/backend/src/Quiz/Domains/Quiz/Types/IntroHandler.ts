@@ -1,7 +1,7 @@
 import { HomeCardType } from '../../../../../../../lib/Types/Domains/Home/Types';
 import { randomNum } from '../../../Helpers/Helpers';
 import { BaseQuizHandlerType } from '../Base/BaseQuizHandlerType';
-import prisma from '../../../../Core/Prisma/Prisma';
+import { prisma } from '../../../../Core/Prisma/Prisma';
 
 const intro = {
     id: randomNum(),
@@ -22,7 +22,7 @@ export const IntroHandler = (): BaseQuizHandlerType => {
 
     const asDetails = async (id: any) => {
         try {
-            const quiz = await prisma.quizzes.findFirstOrThrow(id);
+            const quiz = await prisma.quiz_sessions.findFirstOrThrow(id);
             return { ...intro, quiz };
         } catch (e) {
             return { message: 'Quiz not found.' };

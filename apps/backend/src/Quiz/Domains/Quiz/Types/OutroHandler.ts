@@ -1,5 +1,5 @@
 import { randomNum } from '../../../Helpers/Helpers';
-import prisma from '../../../../Core/Prisma/Prisma';
+import { prisma } from '../../../../Core/Prisma/Prisma';
 
 const outro = {
     id: randomNum(),
@@ -19,7 +19,7 @@ export const OutroHandler = () => {
     };
 
     const asDetails = async (id: any) => {
-        const quiz = await prisma.quizzes.findFirst(id);
+        const quiz = await prisma.quiz_sessions.findFirst(id);
 
         return {
             ...outro,
