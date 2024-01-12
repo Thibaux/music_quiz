@@ -23,8 +23,10 @@ model quiz_sessions {
   id         Int      @id @default(autoincrement())
   host_user  users    @relation(fields: [host_id], references: [id])
   host_id    Int
-  songs      songs[]
   type       String
+  hash       String
+  config     Json
+  songs      songs[]
   updated_at DateTime @updatedAt
   created_at DateTime @default(now())
 }
