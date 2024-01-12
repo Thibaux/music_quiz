@@ -3,6 +3,7 @@ import { QuizzesService } from '../../../Quiz/Domains/Quiz/QuizzesService';
 import { body, param } from 'express-validator';
 import { toArray } from '../../../Quiz/Helpers/Helpers';
 import { QuizzesEnum } from '../../../Quiz/Domains/Quiz/QuizzesEnum';
+import { created, error, success } from '../../Helpers/ResponseHelpers';
 import prisma from '../../../Core/Prisma/Prisma';
 
 export const Index = async (req: Request, res: Response) => {
@@ -10,7 +11,7 @@ export const Index = async (req: Request, res: Response) => {
         .all()
         .map((handler) => handler.asIndex());
 
-    return res.json({ data: response });
+    return success(response, res);
 };
 
 export const ShowValidation = param('type')
@@ -24,9 +25,9 @@ export const Show = async (req: Request, res: Response) => {
             .get(req.params.type as string)
             .asDetails(req.params.id);
 
-        return res.json({ data: details });
+        return success(details, res);
     } catch (err) {
-        return res.status(400).json({ data: err.message });
+        return error(err.message, res);
     }
 };
 
@@ -44,8 +45,8 @@ export const Create = async (req: Request, res: Response) => {
     });
 
     if (!quiz) {
-        console.log('stront aan de knikker!');
+        return error('Could not create quiz.', res);
     }
 
-    return res.status(201).json({ data: quiz });
+    return created(quiz, res);
 };

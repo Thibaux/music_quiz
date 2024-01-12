@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { param, validationResult } from 'express-validator';
 import { Auth } from '../../../Core/Authentication/Auth';
-import { SongManager } from '../../../Quiz/Song/Manager/SongMananger';
 import { SongsService } from '../../../Quiz/Domains/Songs/SongsService';
 
 export const Index = async (req: Request, res: Response) => {
@@ -25,7 +24,5 @@ export const Show = async (req: Request, res: Response) => {
         return res.status(400).json({ errors: validationResult(req).array() });
     }
 
-    const id = SongManager.get(req.params.id);
-
-    return res.json({ data: id });
+    // return res.json({ data: id });
 };

@@ -1,9 +1,5 @@
 import { HomeCardType } from '../../../../../../../lib/Types/Domains/Home/Types';
-import { getRandomItemsFromArray, randomNum } from '../../../Helpers/Helpers';
-import { SpotifyClient } from '../../../../Core/Http/SpotifyClient';
-import { Spotify } from '../../../../Config/Spotify';
-import { SongManager } from '../../../Song/Manager/SongMananger';
-import { SongMapper } from '../../../Song/Mappers/SongMapper';
+import { randomNum } from '../../../Helpers/Helpers';
 import { BaseQuizHandlerType } from '../Base/BaseQuizHandlerType';
 import prisma from '../../../../Core/Prisma/Prisma';
 
@@ -34,15 +30,6 @@ export const IntroHandler = (): BaseQuizHandlerType => {
     };
 
     const handle = async () => {
-        if (SongManager.songs.length === 0) {
-            const data = await SpotifyClient().get(
-                `playlists/${Spotify.playlistsIds.radioVeronica}`
-            );
-
-            const tracks = getRandomItemsFromArray(data.data.tracks.items, 9);
-            SongManager.songs = tracks.map((t) => SongMapper().handle(t.track));
-        }
-
         // activate some kind of song handler
         // where in we generate options for the user
         // play the intro of the song
@@ -55,7 +42,6 @@ export const IntroHandler = (): BaseQuizHandlerType => {
         return {
             id: intro.id,
             title: intro.title,
-            songs: SongManager.songs,
         };
     };
 

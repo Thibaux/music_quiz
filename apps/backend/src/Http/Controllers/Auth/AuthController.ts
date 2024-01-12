@@ -2,6 +2,8 @@ import SpotifyWebApi from 'spotify-web-api-node';
 import { Request, Response } from 'express';
 import querystring from 'querystring';
 import { Auth } from '../../../Core/Authentication/Auth';
+import { success } from '../../Helpers/ResponseHelpers';
+import { UserService } from '../../../Quiz/Domains/User/UserService';
 
 export const Login = async (req: Request, res: Response) => {
     const { code } = req.body;
@@ -15,7 +17,9 @@ export const Login = async (req: Request, res: Response) => {
         const { body } = await spotifyApi.authorizationCodeGrant(code);
         Auth.tokenDTO = { ...body };
 
-        return res.json({ data: Auth.tokenDTO.access_token });
+        UserService().createUser(body);
+
+        return success({ token: Auth.tokenDTO.access_token }, res);
     } catch (err) {
         return res.status(400).json({ data: err.message });
     }

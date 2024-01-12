@@ -1,17 +1,9 @@
-import prisma from '../../../Core/Prisma/Prisma';
-
 export const UserService = () => {
-    const createUser = async () => {
-        const spotifyUser = {
-            email: '',
-        };
+    const createUser = async (spotifyUser: any) => {
+        console.log(spotifyUser);
 
-        const quiz = await prisma.users.create({
-            data: {
-                email: spotifyUser.email,
-                // first_name: spotifyUser.first_name,
-                // last_name: spotifyUser.last_name,
-            },
-        });
+        // axios.get('https://api.spotify.com/v1/me/playlists', {
     };
+
+    return { createUser };
 };
