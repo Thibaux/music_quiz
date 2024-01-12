@@ -5,7 +5,7 @@ import { QuizzesEnum } from '../../../Quiz/Domains/Quiz/QuizzesEnum';
 import { created, error } from '../../Helpers/ResponseHelpers';
 import { prisma } from '../../../Core/Prisma/Prisma';
 import QuizSessionService from '../../../Quiz/Domains/QuizSessions/QuizSessionService';
-import { User } from '../../../Quiz/Domains/User/User';
+import { CurrentUser } from '../../../Quiz/Domains/User/CurrentUser';
 
 export const Show = async (req: Request, res: Response) => {
     // try {
@@ -26,7 +26,7 @@ export const CreateValidation = param('type')
 export const Create = async (req: Request, res: Response) => {
     const quiz = await prisma.quiz_sessions.create({
         data: {
-            host_id: User.user.id,
+            host_id: CurrentUser.user.id,
             type: req.params.type,
             hash: QuizSessionService.hashGenerator(),
             config: {},

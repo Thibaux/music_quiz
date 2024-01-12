@@ -6,7 +6,6 @@ import { QuizzesEnum } from '../../../Quiz/Domains/Quiz/QuizzesEnum';
 import { created, error, success } from '../../Helpers/ResponseHelpers';
 import { prisma } from '../../../Core/Prisma/Prisma';
 import QuizSessionService from '../../../Quiz/Domains/QuizSessions/QuizSessionService';
-import { User } from '../../../Quiz/Domains/User/User';
 
 export const Index = async (req: Request, res: Response) => {
     const response = QuizzesService()
@@ -26,7 +25,7 @@ export const Show = async (req: Request, res: Response) => {
             .get(req.params.type as string)
             .asDetails(req.params.id);
 
-        return success(User.user, res);
+        return success(details, res);
     } catch (err) {
         return error(err.message, res);
     }

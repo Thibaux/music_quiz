@@ -4,7 +4,7 @@ import querystring from 'querystring';
 import { Auth } from '../../../Core/Authentication/Auth';
 import { success } from '../../Helpers/ResponseHelpers';
 import { UserService } from '../../../Quiz/Domains/User/UserService';
-import { User } from '../../../Quiz/Domains/User/User';
+import { CurrentUser } from '../../../Quiz/Domains/User/CurrentUser';
 
 export const Login = async (req: Request, res: Response) => {
     const { code } = req.body;
@@ -19,7 +19,7 @@ export const Login = async (req: Request, res: Response) => {
         Auth.tokenDTO = { ...body };
 
         const currentUser = await UserService().findOrCreate();
-        User.user = currentUser;
+        CurrentUser.user = currentUser;
 
         return success({ token: Auth.tokenDTO.access_token }, res);
     } catch (err) {

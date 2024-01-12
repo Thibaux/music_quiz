@@ -1,7 +1,7 @@
-import { User } from './apps/backend/src/Quiz/Domains/User/User';
+import { CurrentUser } from './apps/backend/src/Quiz/Domains/User/CurrentUser';
 
 async function main() {
-    console.log(User.user);
+    console.log(CurrentUser.user);
 }
 
 main();
