@@ -10,7 +10,7 @@ export const Index = async (req: Request, res: Response) => {
         .all()
         .map((handler) => handler.asIndex());
 
-    res.json({ data: response });
+    return res.json({ data: response });
 };
 
 export const ShowValidation = param('type')
@@ -31,20 +31,21 @@ export const Show = async (req: Request, res: Response) => {
 };
 
 export const CreateValidation = body('type')
+    .toUpperCase()
     .isIn(toArray(QuizzesEnum))
     .withMessage('Type is not one of: ' + toArray(QuizzesEnum).toString().toLowerCase());
 
 export const Create = async (req: Request, res: Response) => {
-    try {
-        const quiz = await prisma.quizzes.create({
-            data: {
-                type: req.body.type,
-                users_id: 11,
-            },
-        });
+    const quiz = await prisma.quizzes.create({
+        data: {
+            type: req.body.type,
+            users_id: 1,
+        },
+    });
 
-        return res.json({ data: quiz });
-    } catch (err) {
-        return res.status(400).json({ data: err.message });
+    if (!quiz) {
+        console.log('stront aan de knikker!');
     }
+
+    return res.status(201).json({ data: quiz });
 };

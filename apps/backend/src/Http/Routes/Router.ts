@@ -8,7 +8,7 @@ import SongRouter from './Song/Song';
 const Router = express.Router();
 
 Router.use(HealthRouter);
-Router.use(AuthRouter);
+Router.use('/auth', AuthRouter);
 Router.use('/users', UserRouter);
 Router.use('/quiz', QuizRouter);
 Router.use('/songs', SongRouter);

@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import Router from './Http/Routes/Router';
-import { Middleware } from './Http/Middleware/Middleware';
+import { AuthenticationMiddleware } from './Http/Middleware/AuthenticationMiddleware/Authentication';
 
 const app = express();
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
@@ -16,7 +16,7 @@ app.use(
     })
 );
 
-app.use(Middleware);
+app.use(AuthenticationMiddleware);
 app.use(Router);
 
 app.listen(port, () => {

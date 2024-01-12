@@ -6,11 +6,12 @@ import {
     Show,
     ShowValidation,
 } from '../../Controllers/Quiz/QuizController';
+import { validate } from '../../Validation/Validation';
 
 const QuizRouter = express.Router();
 
-QuizRouter.get('/', Index);
-QuizRouter.get('/:type', ShowValidation, Show);
-QuizRouter.post('/:type', CreateValidation, Create);
+QuizRouter.get('', Index);
+QuizRouter.get('/:type', validate([ShowValidation]), Show);
+QuizRouter.post('', validate([CreateValidation]), Create);
 
 export default QuizRouter;

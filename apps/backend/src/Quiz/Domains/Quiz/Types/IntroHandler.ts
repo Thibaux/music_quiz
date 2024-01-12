@@ -25,12 +25,12 @@ export const IntroHandler = (): BaseQuizHandlerType => {
     };
 
     const asDetails = async (id: any) => {
-        const quiz = await prisma.quizzes.findFirst(id);
-
-        return {
-            ...intro,
-            quiz,
-        };
+        try {
+            const quiz = await prisma.quizzes.findFirstOrThrow(id);
+            return { ...intro, quiz };
+        } catch (e) {
+            return { message: 'Quiz not found.' };
+        }
     };
 
     const handle = async () => {
