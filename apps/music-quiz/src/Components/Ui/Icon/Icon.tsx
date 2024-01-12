@@ -1,7 +1,7 @@
 import { GoMoveToStart } from 'react-icons/go';
 import { GiMusicalScore } from 'react-icons/gi';
 
-import { IconSize, IconTypes } from '../../../../../../lib/Shared/Types/Ui/Icons/Types';
+import { IconSize, IconTypes } from '../../../../../../lib/Types/Ui/Icons/Types';
 
 type Props = {
     type: IconTypes;

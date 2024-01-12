@@ -8,7 +8,7 @@ export const QuizzesService = () => {
         return [IntroHandler(), OutroHandler(), ChorusHandler()];
     };
 
-    const mapped = (): {} => {
+    const mapped = () => {
         return {
             [QuizzesEnum.INTROS]: IntroHandler(),
             [QuizzesEnum.OUTROS]: OutroHandler(),

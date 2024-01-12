@@ -1,9 +1,11 @@
-import { HomeCardType } from '../../../../../../../lib/Shared/Types/Domains/Home/Types';
+import { HomeCardType } from '../../../../../../../lib/Types/Domains/Home/Types';
 import { getRandomItemsFromArray, randomNum } from '../../../Helpers/Helpers';
 import { SpotifyClient } from '../../../../Core/Http/SpotifyClient';
 import { Spotify } from '../../../../Config/Spotify';
 import { SongManager } from '../../../Song/Manager/SongMananger';
 import { SongMapper } from '../../../Song/Mappers/SongMapper';
+import { BaseQuizHandlerType } from '../Base/BaseQuizHandlerType';
+import prisma from '../../../../Core/Prisma/Prisma';
 
 const intro = {
     id: randomNum(),
@@ -14,11 +16,20 @@ const intro = {
     url: '/quiz/intros',
 };
 
-export const IntroHandler = () => {
+export const IntroHandler = (): BaseQuizHandlerType => {
     const asIndex = (): HomeCardType => {
         return {
             ...intro,
             icon: 'startArrow',
+        };
+    };
+
+    const asDetails = async (id: any) => {
+        const quiz = await prisma.quizzes.findFirst(id);
+
+        return {
+            ...intro,
+            quiz,
         };
     };
 
@@ -48,5 +59,5 @@ export const IntroHandler = () => {
         };
     };
 
-    return { asIndex, handle };
+    return { asIndex, asDetails, handle };
 };

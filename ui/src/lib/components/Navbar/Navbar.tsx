@@ -1,6 +1,7 @@
+import React from 'react';
 import { NavItem } from './NavItem';
 import { Icon } from '../../../../../apps/music-quiz/src/Components/Ui/Icon/Icon';
-import { IconSize } from '../../../../../lib/Shared/Types/Ui/Icons/Types';
+import { IconSize } from '../../../../../lib/Types/Ui/Icons/Types';
 
 export default function Navbar() {
     const navItems = [

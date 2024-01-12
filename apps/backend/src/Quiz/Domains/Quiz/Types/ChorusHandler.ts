@@ -1,8 +1,9 @@
-import { HomeCardType } from '../../../../../../../lib/Shared/Types/Domains/Home/Types';
 import { getRandomItemsFromArray, randomNum } from '../../../Helpers/Helpers';
 import { SpotifyClient } from '../../../../Core/Http/SpotifyClient';
 import { Spotify } from '../../../../Config/Spotify';
-import { SongMapper } from '../../../Song/Mappers/SongMapper';
+import { BaseQuizHandlerType } from '../Base/BaseQuizHandlerType';
+import prisma from '../../../../Core/Prisma/Prisma';
+import { HomeCardType } from '../../../../../../../lib/Types/Domains/Home/Types';
 
 const chorus = {
     id: randomNum(),
@@ -12,7 +13,7 @@ const chorus = {
     url: '/quiz/chorus',
 };
 
-export const ChorusHandler = () => {
+export const ChorusHandler = (): BaseQuizHandlerType => {
     const asIndex = (): HomeCardType => {
         return {
             ...chorus,
@@ -20,13 +21,32 @@ export const ChorusHandler = () => {
         };
     };
 
-    const handle = async () => {
-        const data = await SpotifyClient().get(
-            `playlists/${Spotify.playlistsIds.radioVeronica}`
-        );
+    const asDetails = async (id: any) => {
+        const quiz = await prisma.quizzes.findFirst(id);
+
+        return {
+            ...chorus,
+            quiz,
+        };
+    };
+
+    const handle = async (quizID: number) => {
+        const data = await SpotifyClient().get(`playlists/${Spotify.playlistsIds.radioVeronica}`);
 
         const tracks = getRandomItemsFromArray(data.data.tracks.items, 9);
-        const songs = tracks.map((t) => SongMapper().handle(t.track));
+
+        tracks.map(async (t: any) => {
+            await prisma.songs.createMany({
+                data: {
+                    quizzes_id: quizID,
+                    spotify_id: t.track.id,
+                    title: t.track.name,
+                    chorus_url: t.track.preview_url,
+                },
+            });
+        });
+
+        await prisma.songs.findMany();
 
         // activate some kind of song handler
         // where in we generate options for the user
@@ -36,9 +56,7 @@ export const ChorusHandler = () => {
         // multiple choice options service
         // should be able to chose amount of options
         // amount of options that are from the same artist
-
-        return songs;
     };
 
-    return { asIndex, handle };
+    return { asIndex, asDetails, handle };
 };

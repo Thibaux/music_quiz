@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { QuizzesService } from '../../../Quiz/Domains/Quiz/QuizzesService';
-import { param, validationResult } from 'express-validator';
+import { body, param } from 'express-validator';
 import { toArray } from '../../../Quiz/Helpers/Helpers';
-import { Auth } from '../../../Core/Authentication/Auth';
 import { QuizzesEnum } from '../../../Quiz/Domains/Quiz/QuizzesEnum';
+import prisma from '../../../Core/Prisma/Prisma';
 
 export const Index = async (req: Request, res: Response) => {
     const response = QuizzesService()
@@ -19,16 +19,31 @@ export const ShowValidation = param('type')
     .withMessage('Type is not one of: ' + toArray(QuizzesEnum).toString().toLowerCase());
 
 export const Show = async (req: Request, res: Response) => {
-    Auth.tokenDTO.access_token = req.headers.authorization;
-
-    if (!validationResult(req).isEmpty()) {
-        return res.status(400).json({ errors: validationResult(req).array() });
-    }
-
-    const handler = QuizzesService().get(req.params.type as string);
-
     try {
-        const details = await handler.handle();
+        const details = await QuizzesService()
+            .get(req.params.type as string)
+            .asDetails(req.params.id);
+
+        return res.json({ data: details });
+    } catch (err) {
+        return res.status(400).json({ data: err.message });
+    }
+};
+
+export const CreateValidation = body('type')
+    .isIn(toArray(QuizzesEnum))
+    .withMessage('Type is not one of: ' + toArray(QuizzesEnum).toString().toLowerCase());
+
+export const Create = async (req: Request, res: Response) => {
+    try {
+        const quiz = await prisma.quizzes.create({
+            data: {
+                type: req.body.type,
+                users_id: 11,
+            },
+        });
+
+        return res.json({ data: quiz });
     } catch (err) {
         return res.status(400).json({ data: err.message });
     }

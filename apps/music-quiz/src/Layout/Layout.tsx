@@ -1,7 +1,7 @@
 import React from 'react';
 import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
-import Navbar from '../../../../ui/src/lib/Components/Navbar/Navbar';
+import Navbar from '../../../../UI/src/lib/Components/Navbar/Navbar';
 
 type Props = {
     children: React.ReactNode;

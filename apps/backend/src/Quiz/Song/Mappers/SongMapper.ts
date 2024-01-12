@@ -1,5 +1,5 @@
 import { ArtistMapper } from './ArtistMapper';
-import { SongType } from '../../../../../../lib/Shared/Types/Domains/Quiz/Types';
+import { SongType } from '../../../../../../lib/Types/Domains/Quiz/Types';
 
 export const SongMapper = () => {
     let song = {} as SongType;

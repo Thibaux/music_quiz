@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { PageContainer } from '../../Layout/Page/PageContainer';
 import { HomeCard } from '../../Components/Ui/Cards/HomeCard';
 import { useHttp } from '../../Hooks/useHttp';
-import { HomeCardType } from '../../../../../lib/Shared/Types/Domains/Home/Types';
+import { HomeCardType } from '../../../../../lib/Types/Domains/Home/Types';
 
 export const Home = () => {
     const http = useHttp();

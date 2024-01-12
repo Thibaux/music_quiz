@@ -16,7 +16,7 @@ const Router = () => {
                 <Route path="/quiz/intros" element={<Intros />} />
 
                 {/*<Route path={"/welcome"} element={<WelcomeComponent/>}></Route>*/}
-                {/*<Route path={"/ui"} element={Ui2()}></Route>*/}
+                {/*<Route path={"/UI"} element={Ui2()}></Route>*/}
             </Routes>
         </Layout>
     );

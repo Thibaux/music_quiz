@@ -10,9 +10,7 @@ export const NavItem = (props: Props) => {
 
     return (
         <div
-            className={
-                'flex w-20 justify-start items-start text-gray-200 hover:text-[#1Db954]'
-            }
+            className={'flex w-20 justify-start items-start text-gray-200 hover:text-[#1Db954]'}
             onClick={() => navigate(props.route)}
         >
             <div aria-current="page">{props.item}</div>

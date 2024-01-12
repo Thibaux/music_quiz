@@ -1,6 +1,6 @@
 import React from 'react';
 import { Title } from '../Typography/Title';
-import { HomeCardType } from '../../../../../../lib/Shared/Types/Domains/Home/Types';
+import { HomeCardType } from '../../../../../../lib/Types/Domains/Home/Types';
 import { Text } from '../Typography/Text';
 import { Icon } from '../Icon/Icon';
 import { Divider } from '../Divider';

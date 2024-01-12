@@ -1,5 +1,5 @@
 import { randomNum } from '../../../Helpers/Helpers';
-import { HomeCardType } from '../../../../../../../lib/Shared/Types/Domains/Home/Types';
+import prisma from '../../../../Core/Prisma/Prisma';
 
 const outro = {
     id: randomNum(),
@@ -11,28 +11,28 @@ const outro = {
 };
 
 export const OutroHandler = () => {
-    const handle = () => {
-        console.log('handling');
-        // fetch playlist
-        // get the ids of 9 random songs
-    };
-
-    const asIndex = (): HomeCardType => {
+    const asIndex = () => {
         return {
             ...outro,
             icon: 'endArrow',
         };
     };
 
-    const asDetails = (): {} => {
+    const asDetails = async (id: any) => {
+        const quiz = await prisma.quizzes.findFirst(id);
+
+        return {
+            ...outro,
+            quiz,
+        };
+    };
+
+    const handle = () => {
         return {
             id: outro.id,
             title: outro.title,
         };
     };
 
-    return {
-        asIndex,
-        asDetails,
-    };
+    return { asIndex, asDetails, handle };
 };
