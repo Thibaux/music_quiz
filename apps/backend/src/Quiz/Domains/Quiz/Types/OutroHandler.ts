@@ -1,5 +1,5 @@
-import { randomNum } from '../../Helpers/Helpers';
-import { HomeCardType } from '../../../../../../lib/Shared/Types/Domains/Home/Types';
+import { randomNum } from '../../../Helpers/Helpers';
+import { HomeCardType } from '../../../../../../../lib/Shared/Types/Domains/Home/Types';
 
 const outro = {
     id: randomNum(),

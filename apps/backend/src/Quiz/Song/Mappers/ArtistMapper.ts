@@ -1,4 +1,4 @@
-import { Type as ArtistType } from '../../DTO/ArtistDTO';
+import { ArtistType } from '../../../../../../lib/Shared/Types/Domains/Quiz/Types';
 
 export const ArtistMapper = () => {
     let artist = {} as ArtistType;

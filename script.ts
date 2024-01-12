@@ -1,17 +1,15 @@
-import prisma from './apps/backend/src/Core/Prisma/Prisma';
+import { Songs } from './apps/backend/src/Quiz/Domains/Songs/Songs';
 
 async function main() {
-    const allUsers = await prisma.user.findMany();
-
-    console.log(allUsers);
+    console.log(new Songs().build());
 }
 
-main()
-    .then(async () => {
-        await prisma.$disconnect();
-    })
-    .catch(async (e) => {
-        console.error(e);
-        await prisma.$disconnect();
-        process.exit(1);
-    });
+main();
+// .then(async () => {
+//     await prisma.$disconnect();
+// })
+// .catch(async (e) => {
+//     console.error(e);
+//     await prisma.$disconnect();
+//     process.exit(1);
+// });

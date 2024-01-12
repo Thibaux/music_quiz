@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { QuizzesService } from '../../../Quiz/Quiz/QuizzesService';
+import { QuizzesService } from '../../../Quiz/Domains/Quiz/QuizzesService';
 import { param, validationResult } from 'express-validator';
 import { toArray } from '../../../Quiz/Helpers/Helpers';
 import { Auth } from '../../../Core/Authentication/Auth';
-import { QuizzesEnum } from '../../../Quiz/Quiz/QuizzesEnum';
+import { QuizzesEnum } from '../../../Quiz/Domains/Quiz/QuizzesEnum';
 
 export const Index = async (req: Request, res: Response) => {
     const response = QuizzesService()
@@ -29,8 +29,6 @@ export const Show = async (req: Request, res: Response) => {
 
     try {
         const details = await handler.handle();
-
-        return res.json({ data: details });
     } catch (err) {
         return res.status(400).json({ data: err.message });
     }

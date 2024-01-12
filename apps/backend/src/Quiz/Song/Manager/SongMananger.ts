@@ -1,4 +1,4 @@
-import { Type as SongType } from '../../DTO/SongDTO';
+import { SongType } from '../../../../../../lib/Shared/Types/Domains/Quiz/Types';
 
 export const SongManager = {
     songs: [] as SongType[],
@@ -10,21 +10,5 @@ export const SongManager = {
                 return songId;
             }
         }
-
-        // return SongManager.songsIds.map((songsId: string) => id === id);
-
-        // if (SongManager.songs.length === 0) {
-        //     return null;
-        // }
-        //
-        // SongManager.songs.forEach((element) => {
-        //     console.log(element);
-        //
-        //     if (element.spotify_id == id) {
-        //         return element;
-        //     }
-        // });
     },
-
-    setSongs: () => {},
 };

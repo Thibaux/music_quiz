@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model users {
   id         Int      @id @default(autoincrement())
   email      String   @unique
   first_name String?
@@ -16,7 +16,7 @@ model User {
   updatedAt  DateTime @updatedAt
 }
 
-model Song {
+model songs {
   id         Int    @id @default(autoincrement())
   spotify_id String
   title      String

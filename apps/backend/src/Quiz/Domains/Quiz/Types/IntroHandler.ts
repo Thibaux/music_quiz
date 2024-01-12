@@ -1,9 +1,9 @@
-import { HomeCardType } from '../../../../../../lib/Shared/Types/Domains/Home/Types';
-import { getRandomItemsFromArray, randomNum } from '../../Helpers/Helpers';
-import { SpotifyClient } from '../../../Core/Http/SpotifyClient';
-import { Spotify } from '../../../Config/Spotify';
-import { SongManager } from '../../Song/Manager/SongMananger';
-import { SongMapper } from '../../Song/Mappers/SongMapper';
+import { HomeCardType } from '../../../../../../../lib/Shared/Types/Domains/Home/Types';
+import { getRandomItemsFromArray, randomNum } from '../../../Helpers/Helpers';
+import { SpotifyClient } from '../../../../Core/Http/SpotifyClient';
+import { Spotify } from '../../../../Config/Spotify';
+import { SongManager } from '../../../Song/Manager/SongMananger';
+import { SongMapper } from '../../../Song/Mappers/SongMapper';
 
 const intro = {
     id: randomNum(),
