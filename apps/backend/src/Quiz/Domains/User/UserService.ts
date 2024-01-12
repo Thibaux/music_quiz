@@ -2,7 +2,7 @@ import { SpotifyClient } from '../../../Core/Http/SpotifyClient';
 import { prisma } from '../../../Core/Prisma/Prisma';
 
 export const UserService = () => {
-    const createUser = async (spotifyUser: any) => {
+    const createUser = async () => {
         const { data } = await SpotifyClient().get(`me`);
 
         let profile = {
@@ -19,7 +19,15 @@ export const UserService = () => {
             profile['avatar'] = data.images.slice(-1)[0].url;
         }
 
-        console.log({ ...profile });
+        const userExists = await prisma.users.findUnique({
+            where: {
+                email: data.email,
+            },
+        });
+
+        if (userExists) {
+            return;
+        }
 
         await prisma.users.create({
             data: { ...profile },
