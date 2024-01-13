@@ -18,8 +18,7 @@ export const Login = async (req: Request, res: Response) => {
         const { body } = await spotifyApi.authorizationCodeGrant(code);
         Auth.tokenDTO = { ...body };
 
-        const currentUser = await UserService().findOrCreate();
-        CurrentUser.user = currentUser;
+        CurrentUser.user = await UserService().findOrCreate();
 
         return success({ token: Auth.tokenDTO.access_token }, res);
     } catch (err) {
