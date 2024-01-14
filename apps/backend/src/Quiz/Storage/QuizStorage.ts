@@ -18,8 +18,8 @@ const QuizStorage = {
         set: async (user: any) => set(user, CurrentUsersPath, user.id),
     },
 
-    quiz_session: {
-        get: async (userUuid: string) => get(userUuid, CurrentUsersPath),
+    quizSession: {
+        get: async (id: number) => get(id, CurrentUsersPath),
         set: async (user: any) => set(user, CurrentUsersPath, user.id),
     },
 };

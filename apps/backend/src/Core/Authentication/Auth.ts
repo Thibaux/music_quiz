@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import Result from '../../Quiz/Result/Result';
 
 type JwtPayload = {
-    user: any;
+    user?: any;
 };
 
 const privateKey = 'music_quiz_very_secret';
@@ -28,8 +28,8 @@ const Auth = {
     },
 
     decodeToken: async (token: string) => {
-        const { user } = jwt.verify(token, privateKey) as JwtPayload;
-        return user;
+        const data = jwt.verify(token, privateKey) as JwtPayload;
+        return data?.user;
     },
 };
 
