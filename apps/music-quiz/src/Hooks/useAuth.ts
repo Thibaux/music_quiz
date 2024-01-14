@@ -1,38 +1,49 @@
-import { useState, useEffect } from "react"
-import axios from "axios"
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useHttp } from './useHttp';
 
-type Props  = {
-	code?: string | null;
-}
+export const useAuth = () => {
+    const http = useHttp();
+    const url = new URLSearchParams(window.location.search);
+    const [accessToken, setAccessToken] = useState();
+    const [refreshToken, setRefreshToken] = useState();
+    const [expiresIn, setExpiresIn] = useState();
+    const token = localStorage.getItem('token');
 
-export const useAuth = (props: Props) => {
-	const {code} = props;
-	const [accessToken, setAccessToken] = useState()
-	const [refreshToken, setRefreshToken] = useState()
-	const [expiresIn, setExpiresIn] = useState()
+    useEffect(() => {
+        if (!refreshToken || !expiresIn) return;
 
-	const token = localStorage.getItem('token');
+        const interval = setInterval(() => {
+            axios
+                .post('http://localhost:3001/refresh', {
+                    refreshToken,
+                })
+                .then((res) => {
+                    setAccessToken(res.data.accessToken);
+                    setExpiresIn(res.data.expiresIn);
+                })
+                .catch(() => {
+                    window.location.replace('/');
+                });
+        }, (expiresIn - 60) * 1000);
 
-	useEffect(() => {
-		if (!refreshToken || !expiresIn) return
+        return () => clearInterval(interval);
+    }, [refreshToken, expiresIn]);
 
-		const interval = setInterval(() => {
-			axios.post("http://localhost:3001/refresh", {
-					refreshToken,
-				})
-				.then(res => {
-					setAccessToken(res.data.accessToken)
-					setExpiresIn(res.data.expiresIn)
-				})
-				.catch(() => {
-					window.location.replace('/')
-				})
-		}, (expiresIn - 60) * 1000)
+    const isLoggedIn = () => localStorage.getItem('token');
 
-		return () => clearInterval(interval)
-	}, [refreshToken, expiresIn])
+    const login = async () => {
+        if (url.get('code')) {
+            http.post(`auth/login`, { code: url.get('code') })
+                .then((res) => {
+                    localStorage.setItem('token', res.data.data.token);
+                    url.delete('code');
+                })
+                .catch((error) => {
+                    console.log(error.request);
+                });
+        }
+    };
 
-	return {
-		token
-	}
-}
+    return { token, isLoggedIn, login };
+};

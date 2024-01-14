@@ -3,25 +3,26 @@ import { PageContainer } from '../../Layout/Page/PageContainer';
 import { HomeCard } from '../../Components/Ui/Cards/HomeCard';
 import { useHttp } from '../../Hooks/useHttp';
 import { HomeCardType } from '../../../../../lib/Types/Domains/Home/Types';
+import { useAuth } from '../../Hooks/useAuth';
 
 export const Home = () => {
     const http = useHttp();
-    const url = new URLSearchParams(window.location.search);
     const [data, setData] = useState(null as any);
+    const { isLoggedIn, login } = useAuth();
 
     useEffect(() => {
-        http.post(`auth/login`, { code: url.get('code') })
-            .then((res) => {
-                localStorage.setItem('token', res.data.data.token);
-                url.delete('code');
-            })
-            .catch((error) => {
-                console.log(error.request);
-            });
-    }, [url.get('code')]);
+        const logUserIn = async () => {
+            await login();
+        };
+
+        logUserIn();
+        return () => {};
+    }, []);
 
     useEffect(() => {
-        http.get('quiz').then((res) => setData(res.data.data));
+        if (isLoggedIn()) {
+            http.get('quiz').then((res) => setData(res.data.data));
+        }
     }, []);
 
     if (!data) {

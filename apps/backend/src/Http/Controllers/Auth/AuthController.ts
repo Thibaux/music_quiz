@@ -16,9 +16,6 @@ export const LoginValidation = body('code')
 
 export const Login = async (req: Request, res: Response) => {
     const { code } = req.body;
-
-    console.log(process.env.SPOTIFY_CLIENT_SECRET);
-
     const spotifyApi = new SpotifyWebApi({
         redirectUri: process.env.SPOTIFY_REDIRECT_URI,
         clientId: process.env.SPOTIFY_CLIENT_ID,

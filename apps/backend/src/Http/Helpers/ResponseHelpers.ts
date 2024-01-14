@@ -1,5 +1,9 @@
 import { Response } from 'express';
 
+export const unauthorized = (res: Response) => {
+    return res.status(401).json({ data: 'User is not authorized' });
+};
+
 export const error = (message: string, res: Response) => {
     return res.status(400).json({ data: message });
 };
