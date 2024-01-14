@@ -1,11 +1,12 @@
-import SpotifyWebApi from 'spotify-web-api-node';
 import { Request, Response } from 'express';
+import SpotifyWebApi from 'spotify-web-api-node';
 import querystring from 'querystring';
-import { Auth } from '../../../Core/Authentication/Auth';
 import { success } from '../../Helpers/ResponseHelpers';
 import { UserService } from '../../../Quiz/Domains/User/UserService';
-import { CurrentUser } from '../../../Quiz/Domains/User/CurrentUser';
 import { body } from 'express-validator';
+import Auth from '../../../Core/Authentication/Auth';
+import QuizStorage from '../../../Quiz/Domains/Storage/QuizStorage';
+import Spotify from '../../../Core/Authentication/Spotify';
 
 export const LoginValidation = body('code')
     .exists()
@@ -24,11 +25,13 @@ export const Login = async (req: Request, res: Response) => {
 
     try {
         const { body } = await spotifyApi.authorizationCodeGrant(code);
-        Auth.tokenDTO = { ...body };
+        Spotify.auth = body;
+        const user = await UserService().findOrCreate();
 
-        CurrentUser.user = await UserService().findOrCreate();
+        const token = Auth.setToken(user);
+        await QuizStorage.currentUser.set(user);
 
-        return success({ token: Auth.tokenDTO.access_token }, res);
+        return success({ token: token }, res);
     } catch (err) {
         return res.status(400).json({ data: err.message });
     }

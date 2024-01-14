@@ -1,8 +1,4 @@
-import { CurrentUser } from './apps/backend/src/Quiz/Domains/User/CurrentUser';
-
-async function main() {
-    console.log(CurrentUser.user);
-}
+async function main() {}
 
 main();
 // .then(async () => {

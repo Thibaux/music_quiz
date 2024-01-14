@@ -2,39 +2,25 @@ import { Request, Response } from 'express';
 import { param } from 'express-validator';
 import { toArray } from '../../../Quiz/Helpers/Helpers';
 import { QuizzesEnum } from '../../../Quiz/Domains/Quiz/QuizzesEnum';
+import Auth from '../../../Core/Authentication/Auth';
 import { created, error } from '../../Helpers/ResponseHelpers';
-import { prisma } from '../../../Core/Prisma/Prisma';
 import QuizSessionService from '../../../Quiz/Domains/QuizSessions/QuizSessionService';
-import { CurrentUser } from '../../../Quiz/Domains/User/CurrentUser';
 import ConfigService from '../../../Quiz/Domains/QuizSessions/Config/ConfigService';
-
-export const Show = async (req: Request, res: Response) => {
-    // try {
-    //     const details = await QuizzesService()
-    //         .get(req.params.type as string)
-    //         .asDetails(req.params.id);
-    //
-    //     return success(details, res);
-    // } catch (err) {
-    //     return error(err.message, res);
-    // }
-};
+import { prisma } from '../../../Core/Prisma/Prisma';
 
 export const CreateValidation = param('type')
     .isIn(toArray(QuizzesEnum))
     .withMessage('Type is not one of: ' + toArray(QuizzesEnum).toString());
 
 export const Create = async (req: Request, res: Response) => {
-    if (!CurrentUser.user.id) {
+    const user = await Auth.decodeToken(req.headers.authorization);
+
+    if (!user) {
         return error('Could not create quiz because user is not known.', res);
     }
 
     const quizSession = {
-        host_user: {
-            connect: {
-                id: CurrentUser.user.id,
-            },
-        },
+        host_user: { connect: { id: user.id } },
         type: req.params.type,
         hash: QuizSessionService.hashGenerator(),
         config: ConfigService.get(),

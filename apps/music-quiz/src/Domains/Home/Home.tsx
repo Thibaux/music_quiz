@@ -11,12 +11,8 @@ export const Home = () => {
     const { isLoggedIn, login } = useAuth();
 
     useEffect(() => {
-        const logUserIn = async () => {
-            await login();
-        };
-
+        const logUserIn = async () => await login();
         logUserIn();
-        return () => {};
     }, []);
 
     useEffect(() => {
