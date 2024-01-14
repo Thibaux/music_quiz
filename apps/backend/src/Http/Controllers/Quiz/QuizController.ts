@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import { QuizzesService } from '../../../Quiz/Domains/Quiz/QuizzesService';
 import { body, param } from 'express-validator';
 import { toArray } from '../../../Quiz/Helpers/Helpers';
-import { QuizzesEnum } from '../../../Quiz/Domains/Quiz/QuizzesEnum';
 import { created, error, success } from '../../Helpers/ResponseHelpers';
 import { prisma } from '../../../Core/Prisma/Prisma';
-import QuizSessionService from '../../../Quiz/Domains/QuizSessions/QuizSessionService';
+import { QuizzesEnum } from '../../../Quiz/Quiz/QuizzesEnum';
+import QuizSessionService from '../../../Quiz/QuizSessions/QuizSessionService';
+import { QuizzesService } from '../../../Quiz/Quiz/QuizzesService';
 
 export const Index = async (req: Request, res: Response) => {
     const response = QuizzesService()

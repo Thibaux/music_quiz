@@ -1,9 +1,7 @@
-import { getRandomItemsFromArray, randomNum } from '../../../Helpers/Helpers';
-import { SpotifyClient } from '../../../../Core/Http/SpotifyClient';
-import { Spotify } from '../../../../Config/Spotify';
 import { BaseQuizHandlerType } from '../Base/BaseQuizHandlerType';
-import { HomeCardType } from '../../../../../../../lib/Types/Domains/Home/Types';
-import { prisma } from '../../../../Core/Prisma/Prisma';
+import { randomNum } from '../../Helpers/Helpers';
+import { HomeCardType } from '../../../../../../lib/Types/Domains/Home/Types';
+import { prisma } from '../../../Core/Prisma/Prisma';
 
 const chorus = {
     id: randomNum(),
@@ -31,28 +29,22 @@ export const ChorusHandler = (): BaseQuizHandlerType => {
     };
 
     const handle = async (quizID: number) => {
-        const data = await SpotifyClient().get(`playlists/${Spotify.playlistsIds.radioVeronica}`);
-
-        const tracks = getRandomItemsFromArray(data.data.tracks.items, 9);
-
-        tracks.map(async (t: any) => {
-            await prisma.songs.createMany({
-                data: {
-                    quiz_session_id: quizID,
-                    spotify_id: t.track.id,
-                    title: t.track.name,
-                    chorus_url: t.track.preview_url,
-                },
-            });
-        });
-
-        await prisma.songs.findMany();
-
+        // tracks.map(async (t: any) => {
+        //     await prisma.songs.createMany({
+        //         data: {
+        //             quiz_session_id: quizID,
+        //             spotify_id: t.track.id,
+        //             title: t.track.name,
+        //             chorus_url: t.track.preview_url,
+        //         },
+        //     });
+        // });
+        //
+        // await prisma.songs.findMany();
         // activate some kind of song handler
         // where in we generate options for the user
         // play the intro of the song
         // maybe fetch extra data
-
         // multiple choice options service
         // should be able to chose amount of options
         // amount of options that are from the same artist

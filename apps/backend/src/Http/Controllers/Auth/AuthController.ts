@@ -2,11 +2,11 @@ import { Request, Response } from 'express';
 import SpotifyWebApi from 'spotify-web-api-node';
 import querystring from 'querystring';
 import { success } from '../../Helpers/ResponseHelpers';
-import { UserService } from '../../../Quiz/Domains/User/UserService';
 import { body } from 'express-validator';
+import Spotify from '../../../Quiz/Spotify/Spotify';
+import { UserService } from '../../../Quiz/User/UserService';
+import QuizStorage from '../../../Quiz/Storage/QuizStorage';
 import Auth from '../../../Core/Authentication/Auth';
-import QuizStorage from '../../../Quiz/Domains/Storage/QuizStorage';
-import Spotify from '../../../Core/Authentication/Spotify';
 
 export const LoginValidation = body('code')
     .exists()
@@ -17,24 +17,14 @@ export const LoginValidation = body('code')
 
 export const Login = async (req: Request, res: Response) => {
     const { code } = req.body;
-    const spotifyApi = new SpotifyWebApi({
-        redirectUri: process.env.SPOTIFY_REDIRECT_URI,
-        clientId: process.env.SPOTIFY_CLIENT_ID,
-        clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-    });
 
-    try {
-        const { body } = await spotifyApi.authorizationCodeGrant(code);
-        Spotify.auth = body;
-        const user = await UserService().findOrCreate();
+    const data = await Spotify.login(code);
 
-        const token = Auth.setToken(user);
-        await QuizStorage.currentUser.set(user);
+    const user = await UserService().findOrCreate(data);
 
-        return success({ token: token }, res);
-    } catch (err) {
-        return res.status(400).json({ data: err.message });
-    }
+    await QuizStorage.currentUser.set(user);
+
+    return success({ token: Auth.setToken(user) }, res);
 };
 
 export const Refresh = async (req: Request, res: Response) => {

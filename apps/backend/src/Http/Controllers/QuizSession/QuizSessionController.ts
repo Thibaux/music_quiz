@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import { param } from 'express-validator';
 import { toArray } from '../../../Quiz/Helpers/Helpers';
-import { QuizzesEnum } from '../../../Quiz/Domains/Quiz/QuizzesEnum';
 import Auth from '../../../Core/Authentication/Auth';
 import { created, error } from '../../Helpers/ResponseHelpers';
-import QuizSessionService from '../../../Quiz/Domains/QuizSessions/QuizSessionService';
-import ConfigService from '../../../Quiz/Domains/QuizSessions/Config/ConfigService';
 import { prisma } from '../../../Core/Prisma/Prisma';
+import { QuizzesEnum } from '../../../Quiz/Quiz/QuizzesEnum';
+import QuizSessionService from '../../../Quiz/QuizSessions/QuizSessionService';
+import ConfigService from '../../../Quiz/QuizSessions/Config/ConfigService';
 
 export const CreateValidation = param('type')
     .isIn(toArray(QuizzesEnum))

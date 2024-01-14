@@ -1,5 +1,5 @@
-import { randomNum } from '../../../Helpers/Helpers';
-import { prisma } from '../../../../Core/Prisma/Prisma';
+import { randomNum } from '../../Helpers/Helpers';
+import { prisma } from '../../../Core/Prisma/Prisma';
 
 const outro = {
     id: randomNum(),

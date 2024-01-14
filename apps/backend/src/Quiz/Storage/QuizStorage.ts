@@ -1,5 +1,5 @@
-import Storage from '../../../Core/Storage/Storage';
-import { CurrentUsersPath } from '../../../Core/Storage/Paths';
+import { CurrentUsersPath } from '../../Core/Storage/Paths';
+import Storage from '../../Core/Storage/Storage';
 
 const get = async (key: number | string, path: string) => {
     const storage = await Storage.getData(path);

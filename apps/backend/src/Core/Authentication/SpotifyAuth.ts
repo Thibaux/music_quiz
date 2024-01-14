@@ -5,8 +5,4 @@ type Type = {
     scope: string;
 };
 
-const Spotify = {
-    auth: {} as Type,
-};
-
-export default Spotify;
+export const SpotifyAuth = { user: {} as Type };

@@ -1,12 +1,10 @@
 import { Request, Response } from 'express';
 import { param } from 'express-validator';
-import { SongsService } from '../../../Quiz/Domains/Songs/SongsService';
 
 export const Index = async (req: Request, res: Response) => {
     try {
-        const songs = await SongsService.handle();
-
-        return res.json({ data: songs });
+        // const songs = await SongsService.handle();
+        // return res.json({ data: songs });
     } catch (err) {
         return res.status(400).json({ data: err.message });
     }

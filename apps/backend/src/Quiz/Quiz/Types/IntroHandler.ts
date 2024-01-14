@@ -1,6 +1,6 @@
-import { HomeCardType } from '../../../../../../../lib/Types/Domains/Home/Types';
-import { randomNum } from '../../../Helpers/Helpers';
 import { BaseQuizHandlerType } from '../Base/BaseQuizHandlerType';
+import { randomNum } from '../../Helpers/Helpers';
+import { HomeCardType } from '../../../../../../lib/Types/Domains/Home/Types';
 
 const intro = {
     id: randomNum(),

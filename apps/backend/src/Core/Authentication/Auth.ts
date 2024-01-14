@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import QuizStorage from '../../Quiz/Domains/Storage/QuizStorage';
+import Result from '../../Quiz/Result/Result';
 
 type JwtPayload = {
     user: any;
@@ -11,14 +11,19 @@ const jwtConfig = {
 };
 
 const Auth = {
-    setToken: (user: any) => jwt.sign({ user: user }, privateKey, jwtConfig),
+    setToken: (user: any): string => jwt.sign({ user: user }, privateKey, jwtConfig),
 
-    verifyToken: async (token: string) => {
+    verifyToken: async (token: string): Promise<Result> => {
+        if (!token) {
+            return new Result().asFailed('No token provided');
+        }
+
         try {
-            const decodedJwt = jwt.verify(token, privateKey) as JwtPayload;
-            const currentUser = await QuizStorage.currentUser.get(decodedJwt.user.id);
+            jwt.verify(token, privateKey) as JwtPayload;
+
+            return new Result().asPassed();
         } catch (err) {
-            console.log(err);
+            return new Result().asFailed(err.message);
         }
     },
 

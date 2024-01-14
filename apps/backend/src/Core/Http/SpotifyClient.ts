@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { serializeToken } from '../../Quiz/Helpers/Helpers';
-import Spotify from '../Authentication/Spotify';
+import { SpotifyAuth } from '../Authentication/SpotifyAuth';
 
 export const SpotifyClient = () => {
     const baseUrl = `https://api.spotify.com/v1/`;
     const headers = {
         'Content-Type': 'application/json',
-        Authorization: serializeToken(Spotify.auth.access_token),
+        Authorization: serializeToken(SpotifyAuth.user.access_token),
     };
 
     const get = async (url: string) => {

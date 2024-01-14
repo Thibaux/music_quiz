@@ -1,4 +1,4 @@
-import { HomeCardType } from '../../../../../../../lib/Types/Domains/Home/Types';
+import { HomeCardType } from '../../../../../../lib/Types/Domains/Home/Types';
 
 export type BaseQuizHandlerType = {
     asIndex: () => HomeCardType;
