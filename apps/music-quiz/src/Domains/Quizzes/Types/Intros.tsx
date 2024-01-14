@@ -10,7 +10,7 @@ export const Intros = () => {
     const [data, setData] = useState(null as any);
 
     useEffect(() => {
-        http.post(`quiz-session/${QuizzesEnum.INTROS}`).then((res) => console.log(res.data));
+        http.post(`quiz-session/${QuizzesEnum.INTROS}`).then((res) => '');
     }, []);
 
     useEffect(() => {

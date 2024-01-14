@@ -12,7 +12,7 @@ export const Home = () => {
     useEffect(() => {
         http.post(`auth/login`, { code: url.get('code') })
             .then((res) => {
-                localStorage.setItem('token', res.data.access_token);
+                localStorage.setItem('token', res.data.data.token);
                 url.delete('code');
             })
             .catch((error) => {

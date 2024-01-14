@@ -5,9 +5,9 @@ import { Songs } from './Songs';
 
 export const SongsService = {
     handle: async () => {
-        const data = await SpotifyClient().get(
-            `playlists/${Spotify.playlistsIds.radioVeronica}`
-        );
+        const data = await SpotifyClient().get(`playlists/${Spotify.playlistsIds.radioVeronica}`);
+
+        console.log(data);
 
         const tracks = getRandomItemsFromArray(data.data.tracks.items, 9);
         const songs = tracks.map((t) => t.track);

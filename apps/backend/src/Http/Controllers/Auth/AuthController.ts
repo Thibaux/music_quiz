@@ -5,13 +5,24 @@ import { Auth } from '../../../Core/Authentication/Auth';
 import { success } from '../../Helpers/ResponseHelpers';
 import { UserService } from '../../../Quiz/Domains/User/UserService';
 import { CurrentUser } from '../../../Quiz/Domains/User/CurrentUser';
+import { body } from 'express-validator';
+
+export const LoginValidation = body('code')
+    .exists()
+    .isString()
+    .not()
+    .isEmpty()
+    .withMessage('Code not provided.');
 
 export const Login = async (req: Request, res: Response) => {
     const { code } = req.body;
+
+    console.log(process.env.SPOTIFY_CLIENT_SECRET);
+
     const spotifyApi = new SpotifyWebApi({
-        redirectUri: process.env.REDIRECT_URI,
-        clientId: process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET,
+        redirectUri: process.env.SPOTIFY_REDIRECT_URI,
+        clientId: process.env.SPOTIFY_CLIENT_ID,
+        clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
     });
 
     try {
@@ -29,9 +40,9 @@ export const Login = async (req: Request, res: Response) => {
 export const Refresh = async (req: Request, res: Response) => {
     const { refreshToken } = req.body;
     const spotifyApi = new SpotifyWebApi({
-        redirectUri: process.env.REDIRECT_URI,
-        clientId: process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET,
+        redirectUri: process.env.SPOTIFY_REDIRECT_URI,
+        clientId: process.env.SPOTIFY_CLIENT_ID,
+        clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
         refreshToken,
     });
 
@@ -58,15 +69,15 @@ export const Callback = (req: Request, res: Response) => {
                 })
         );
     } else {
-        const token = Buffer.from(process.env.CLIENT_ID + ':' + process.env.CLIENT_SECRET).toString(
-            'base64'
-        );
+        const token = Buffer.from(
+            process.env.SPOTIFY_SPOTIFY_REDIRECT_URI + ':' + process.env.SPOTIFY_REDIRECT_URI
+        ).toString('base64');
 
         const authOptions = {
             url: 'https://accounts.spotify.com/api/token',
             form: {
                 code: code,
-                redirect_uri: process.env.REDIRECT_URI,
+                redirect_uri: process.env.SPOTIFY_REDIRECT_URI,
                 grant_type: 'authorization_code',
             },
             headers: {

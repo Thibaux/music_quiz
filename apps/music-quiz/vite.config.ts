@@ -20,7 +20,9 @@ export default defineConfig({
     plugins: [react(), nxViteTsPaths()],
 
     define: {
-        'process.env.REACT_APP_CLIENT_ID': JSON.stringify(process.env.REACT_APP_CLIENT_ID),
+        'process.env.REACT_APP_SPOTIFY_CLIENT_ID': JSON.stringify(
+            process.env.REACT_APP_SPOTIFY_CLIENT_ID
+        ),
         'process.env.REACT_APP_REDIRECT_URI': JSON.stringify(process.env.REACT_APP_REDIRECT_URI),
         'process.env.REACT_APP_BASE_URL': JSON.stringify(process.env.REACT_APP_BASE_URL),
     },

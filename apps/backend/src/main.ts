@@ -1,24 +1,15 @@
 import express from 'express';
-import cors from 'cors';
 import Router from './Http/Routes/Router';
-import { AuthenticationMiddleware } from './Http/Middleware/AuthenticationMiddleware/Authentication';
+import { AuthenticationMiddleware } from './Http/Middleware/Authentication/Authentication';
+import PublicRouter from './Http/Routes/PublicRouter';
+import { ApplicationMiddleware } from './Http/Middleware/Application/Application';
 
 const app = express();
-const port = process.env.PORT ? Number(process.env.PORT) : 3000;
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+ApplicationMiddleware(app);
 
-app.use(
-    cors({
-        origin: '*',
-    })
-);
-
+app.use(PublicRouter);
 app.use(AuthenticationMiddleware);
 app.use(Router);
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
-});
+app.listen(Number(process.env.PORT));
