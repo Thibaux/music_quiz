@@ -1,6 +1,6 @@
 import { GoMoveToStart } from 'react-icons/go';
 import { GiMusicalScore } from 'react-icons/gi';
-
+import { RxCross2 } from 'react-icons/rx';
 import { IconSize, IconTypes } from '../../../../../../lib/Types/Ui/Icons/Types';
 
 type Props = {
@@ -27,6 +27,10 @@ export const Icon = (props: Props) => {
 
     if (type === 'musicQuizLogo') {
         return <GiMusicalScore className={baseClassName} />;
+    }
+
+    if (type === 'cross') {
+        return <RxCross2 className={baseClassName} />;
     }
 
     return <div>Icon not found!</div>;

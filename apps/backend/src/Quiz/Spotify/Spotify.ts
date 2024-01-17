@@ -10,6 +10,10 @@ const Spotify = {
     },
 
     async login(code: string) {
+        if (!code) {
+            return;
+        }
+
         const data = await new SpotifyWebApi(Spotify.config).authorizationCodeGrant(code);
         SpotifyAuth.user = data.body;
 

@@ -1,12 +1,7 @@
 import { Request, Response } from 'express';
 import SpotifyWebApi from 'spotify-web-api-node';
 import querystring from 'querystring';
-import { success } from '../../Helpers/ResponseHelpers';
 import { body } from 'express-validator';
-import Spotify from '../../../Quiz/Spotify/Spotify';
-import { UserService } from '../../../Quiz/User/UserService';
-import QuizStorage from '../../../Quiz/Storage/QuizStorage';
-import Auth from '../../../Core/Authentication/Auth';
 
 export const LoginValidation = body('code')
     .exists()
@@ -18,13 +13,13 @@ export const LoginValidation = body('code')
 export const Login = async (req: Request, res: Response) => {
     const { code } = req.body;
 
-    const data = await Spotify.login(code);
+    // const data = await Spotify.login(code);
 
-    const user = await UserService().findOrCreate(data);
-
-    await QuizStorage.currentUser.set(user);
-
-    return success({ token: Auth.setToken(user) }, res);
+    // const user = await UserService().findOrCreate(data);
+    //
+    // await QuizStorage.currentUser.set(user);
+    //
+    // return success({ token: Auth.setToken(user) }, res);
 };
 
 export const Refresh = async (req: Request, res: Response) => {

@@ -17,7 +17,7 @@ export const Home = () => {
     useEffect(() => {
         http.get('quiz')
             .then((res) => setData(res.data.data))
-            .catch((err) => console.log(err.response.data.data));
+            .catch((err) => console.log(err.response?.data?.data));
     }, []);
 
     if (!data) {

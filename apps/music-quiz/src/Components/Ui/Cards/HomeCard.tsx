@@ -4,15 +4,15 @@ import { HomeCardType } from '../../../../../../lib/Types/Domains/Home/Types';
 import { Text } from '../Typography/Text';
 import { Icon } from '../Icon/Icon';
 import { Divider } from '../Divider';
-import { useRouting } from '../../../Hooks/useRouting';
+import useModal from '../../../Hooks/useModal';
 
 export const HomeCard = (props: HomeCardType) => {
-    const { navigate } = useRouting();
     const { icon, title, description, url, rules } = props;
+    const modal = useModal();
 
     return (
         <div
-            onClick={() => navigate(url)}
+            onClick={modal.open}
             className={
                 'sm:w-96 w-10/12 h-auto rounded-2xl cursor-pointer hover:scale-[1.01] duration-300 bg-slate-100 text-gray-900 p-4'
             }
@@ -29,6 +29,18 @@ export const HomeCard = (props: HomeCardType) => {
                     <Text weight={'bold'}>{rules}</Text>
                 </div>
             </div>
+
+            {/*<Modal*/}
+            {/*    title={'Config'}*/}
+            {/*    modal={modal}*/}
+            {/*    onCreateClick={() => console.log('Create')}*/}
+            {/*    content={*/}
+            {/*        <div>*/}
+            {/*            <div>configgg</div>*/}
+            {/*            <div>configgg</div>*/}
+            {/*        </div>*/}
+            {/*    }*/}
+            {/*/>*/}
         </div>
     );
 };
