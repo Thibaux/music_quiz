@@ -8,17 +8,16 @@ import { useAuth } from '../../Hooks/useAuth';
 export const Home = () => {
     const http = useHttp();
     const [data, setData] = useState(null as any);
-    const { isLoggedIn, login } = useAuth();
+    const { login } = useAuth();
 
     useEffect(() => {
-        const logUserIn = async () => await login();
-        logUserIn();
+        login();
     }, []);
 
     useEffect(() => {
-        if (isLoggedIn()) {
-            http.get('quiz').then((res) => setData(res.data.data));
-        }
+        http.get('quiz')
+            .then((res) => setData(res.data.data))
+            .catch((err) => console.log(err.response.data.data));
     }, []);
 
     if (!data) {

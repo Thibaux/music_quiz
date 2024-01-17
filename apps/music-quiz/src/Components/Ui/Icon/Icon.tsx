@@ -6,11 +6,12 @@ import { IconSize, IconTypes } from '../../../../../../lib/Types/Ui/Icons/Types'
 type Props = {
     type: IconTypes;
     size?: IconSize;
+    className?: string;
 };
 
 export const Icon = (props: Props) => {
-    const { type, size } = props;
-    let baseClassName = 'w-[24px] h-[24px] text-blue-600';
+    const { type, size, className } = props;
+    let baseClassName = `w-[24px] h-[24px] ${className}`;
 
     if (size === IconSize.medium) {
         baseClassName = `w-[50px] h-[50px]`;

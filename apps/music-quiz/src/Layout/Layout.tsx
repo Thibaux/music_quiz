@@ -18,7 +18,7 @@ export const Layout = (props: Props) => {
         >
             <main className={'h-screen w-full'}>
                 <Navbar />
-                <div className={'bg-slate-500 h-[calc(100vh-50px)] overflow-auto'}>
+                <div className={'bg-slate-500 h-[calc(100vh-56px)] overflow-auto'}>
                     {props.children}
                 </div>
             </main>

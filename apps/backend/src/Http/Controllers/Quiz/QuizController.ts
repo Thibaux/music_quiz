@@ -1,10 +1,8 @@
 import { Request, Response } from 'express';
-import { body, param } from 'express-validator';
+import { param } from 'express-validator';
 import { toArray } from '../../../Quiz/Helpers/Helpers';
-import { created, error, success } from '../../Helpers/ResponseHelpers';
-import { prisma } from '../../../Core/Prisma/Prisma';
+import { error, success } from '../../Helpers/ResponseHelpers';
 import { QuizzesEnum } from '../../../Quiz/Quiz/QuizzesEnum';
-import QuizSessionService from '../../../Quiz/QuizSessions/QuizSessionService';
 import { QuizzesService } from '../../../Quiz/Quiz/QuizzesService';
 
 export const Index = async (req: Request, res: Response) => {
@@ -29,25 +27,4 @@ export const Show = async (req: Request, res: Response) => {
     } catch (err) {
         return error(err.message, res);
     }
-};
-
-export const CreateValidation = body('type')
-    .isIn(toArray(QuizzesEnum))
-    .withMessage('Type is not one of: ' + toArray(QuizzesEnum).toString());
-
-export const Create = async (req: Request, res: Response) => {
-    const quiz = await prisma.quiz_sessions.create({
-        data: {
-            host_id: 1,
-            type: req.body.type,
-            hash: QuizSessionService.hashGenerator(),
-            config: {},
-        },
-    });
-
-    if (!quiz) {
-        return error('Could not create quiz.', res);
-    }
-
-    return created(quiz, res);
 };
