@@ -10,9 +10,7 @@ export const Title = (props: Props) => {
 
     return (
         <p
-            className={`flex items-center sm:text-2xl text-xl sm:font-medium font-normal no-underline ${
-                className && className
-            }}`}
+            className={`flex items-center sm:text-2xl text-xl sm:font-medium font-normal no-underline ${className}`}
         >
             {text}
         </p>

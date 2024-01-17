@@ -27,7 +27,9 @@ export const Home = () => {
     return (
         <PageContainer>
             {data.map((quiz: HomeCardType) => (
-                <HomeCard key={quiz.id} {...quiz} />
+                <div key={quiz.id} className={'sm:w-96 w-10/12 h-auto'}>
+                    <HomeCard {...quiz} />
+                </div>
             ))}
         </PageContainer>
     );
