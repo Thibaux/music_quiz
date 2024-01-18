@@ -1,5 +1,5 @@
 const ConfigService = {
-    get: () => {
+    getConfig: () => {
         return {
             type: 'default',
             playlist_id: '4BmIp9LV6bjaygjrUdJc0n',

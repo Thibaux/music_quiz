@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { serializeToken } from '../../Quiz/Helpers/Helpers';
 import { SpotifyAuth } from '../Authentication/SpotifyAuth';
 
@@ -9,16 +9,27 @@ export const SpotifyClient = () => {
         Authorization: serializeToken(SpotifyAuth.user.access_token),
     };
 
-    const get = async (url: string) => {
-        return await axios.get(baseUrl + url, { headers });
+    const get = async (url: string): Promise<AxiosResponse> => {
+        const response = await axios.get(baseUrl + url, { headers });
+        return returnResponse(response);
     };
 
-    const post = (url: string, payload: any = {}) => {
-        return axios.post(baseUrl + url, payload, { headers });
+    const post = async (url: string, payload: any = {}) => {
+        const response = await axios.post(baseUrl + url, payload, { headers });
+        return returnResponse(response);
     };
 
-    const put = (url: string, payload: any = {}) => {
-        return axios.put(baseUrl + url, payload, { headers });
+    const put = async (url: string, payload: any = {}) => {
+        const response = await axios.put(baseUrl + url, payload, { headers });
+        return returnResponse(response);
+    };
+
+    const returnResponse = (response: AxiosResponse) => {
+        if (response.status !== 200) {
+            throw Error(response.data.message);
+        }
+
+        return response;
     };
 
     return { get, put, post };

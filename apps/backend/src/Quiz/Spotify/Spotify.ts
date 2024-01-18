@@ -9,12 +9,19 @@ const Spotify = {
         clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
     },
 
-    async login(code: string) {
+    async login(code?: string) {
+        let data = null;
+
         if (!code) {
-            return;
+            throw Error('Code is not provided');
         }
 
-        const data = await new SpotifyWebApi(Spotify.config).authorizationCodeGrant(code);
+        try {
+            data = await new SpotifyWebApi(Spotify.config).authorizationCodeGrant(code);
+        } catch (err) {
+            throw Error('Spotify login error: ' + err.message);
+        }
+
         SpotifyAuth.user = data.body;
 
         const profile = await SpotifyClient().get(`me`);

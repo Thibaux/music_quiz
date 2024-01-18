@@ -15,10 +15,16 @@ export const ConfigModal = (props: Props) => {
     const [isDisabled, setIsDisabled] = useState(true);
 
     useEffect(() => {
-        http.get('quiz/config')
+        http.get('quiz-session/config')
             .then((res) => setData(res.data.data))
             .catch((err) => console.log(err.response?.data?.data));
     }, []);
+
+    if (!data) {
+        return null;
+    }
+
+    console.log(data);
 
     return (
         <Modal

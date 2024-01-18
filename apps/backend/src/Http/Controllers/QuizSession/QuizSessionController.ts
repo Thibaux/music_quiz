@@ -60,7 +60,7 @@ export const Create = asyncHandler(async (req: Request, res: Response) => {
             type: req.params.type,
             status: QuizStatus.CREATED,
             hash: QuizSessionService.hashGenerator(),
-            config: ConfigService.get(),
+            config: ConfigService.getConfig(),
         },
     });
 
