@@ -1,36 +1,45 @@
 import axios, { AxiosResponse } from 'axios';
-import { serializeToken } from '../../Quiz/Helpers/Helpers';
-import { SpotifyAuth } from '../Authentication/SpotifyAuth';
 
-export const SpotifyClient = () => {
-    const baseUrl = `https://api.spotify.com/v1/`;
-    const headers = {
+export const SpotifyClient = {
+    baseUrl: `https://api.spotify.com/v1/`,
+    headers: {
         'Content-Type': 'application/json',
-        Authorization: serializeToken(SpotifyAuth.user.access_token),
-    };
+    },
 
-    const get = async (url: string): Promise<AxiosResponse> => {
-        const response = await axios.get(baseUrl + url, { headers });
-        return returnResponse(response);
-    };
+    init: (config: any) => {
+        const self = SpotifyClient;
+        self.headers['Authorization'] = config.spotify_token;
 
-    const post = async (url: string, payload: any = {}) => {
-        const response = await axios.post(baseUrl + url, payload, { headers });
-        return returnResponse(response);
-    };
+        return self;
+    },
 
-    const put = async (url: string, payload: any = {}) => {
-        const response = await axios.put(baseUrl + url, payload, { headers });
-        return returnResponse(response);
-    };
+    get: async (url: string) => {
+        const response = await axios.get(SpotifyClient.baseUrl + url, {
+            headers: SpotifyClient.headers,
+        });
 
-    const returnResponse = (response: AxiosResponse) => {
+        return SpotifyClient.returnResponse(response);
+    },
+
+    post: async (url: string, payload: any = {}) => {
+        const response = await axios.post(SpotifyClient.baseUrl + url, payload, {
+            headers: SpotifyClient.headers,
+        });
+        return SpotifyClient.returnResponse(response);
+    },
+
+    put: async (url: string, payload: any = {}) => {
+        const response = await axios.put(SpotifyClient.baseUrl + url, payload, {
+            headers: SpotifyClient.headers,
+        });
+        return SpotifyClient.returnResponse(response);
+    },
+
+    returnResponse: (response: AxiosResponse) => {
         if (response.status !== 200) {
             throw Error(response.data.message);
         }
 
-        return response;
-    };
-
-    return { get, put, post };
+        return response.data;
+    },
 };

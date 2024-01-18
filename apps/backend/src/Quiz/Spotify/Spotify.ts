@@ -1,6 +1,6 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 import { SpotifyClient } from '../../Core/Http/SpotifyClient';
-import { SpotifyAuth } from '../../Core/Authentication/SpotifyAuth';
+import { serializeToken } from '../Helpers/Helpers';
 
 const Spotify = {
     config: {
@@ -10,23 +10,20 @@ const Spotify = {
     },
 
     async login(code?: string) {
-        let data = null;
-
         if (!code) {
             throw Error('Code is not provided');
         }
 
-        try {
-            data = await new SpotifyWebApi(Spotify.config).authorizationCodeGrant(code);
-        } catch (err) {
-            throw Error('Spotify login error: ' + err.message);
-        }
+        const data = await new SpotifyWebApi(Spotify.config).authorizationCodeGrant(code);
 
-        SpotifyAuth.user = data.body;
+        const profile = await SpotifyClient.init({
+            spotify_token: serializeToken(data.body.access_token),
+        }).get(`me`);
 
-        const profile = await SpotifyClient().get(`me`);
-
-        return profile.data;
+        return {
+            spotifyUser: profile.data,
+            spotifyToken: serializeToken(data.body.access_token),
+        };
     },
 };
 

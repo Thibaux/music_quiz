@@ -8,14 +8,14 @@ import {
     Update,
     UpdateValidation,
 } from '../../Controllers/QuizSession/QuizSessionController';
-import { Index } from '../../Controllers/QuizSession/Config/ConfigController';
+import ConfigRouter from './Config/Config';
 
 const QuizSessionRouter = express.Router();
+
+QuizSessionRouter.use(ConfigRouter);
 
 QuizSessionRouter.get('/:id', validate([ShowValidation]), Show);
 QuizSessionRouter.put('/:id', validate([UpdateValidation]), Update);
 QuizSessionRouter.post('/:type', validate([CreateValidation]), Create);
-
-QuizSessionRouter.get('/config', Index);
 
 export default QuizSessionRouter;
