@@ -1,11 +1,11 @@
 import React from 'react';
-import { Title } from '../Typography/Title';
+import { Title } from '../../../Components/Ui/Typography/Title';
 import { HomeCardType } from '../../../../../../lib/Types/Domains/Home/Types';
-import { Text } from '../Typography/Text';
-import { Icon } from '../Icon/Icon';
-import { Divider } from '../Divider';
-import { Modal } from '@mantine/core';
+import { Text } from '../../../Components/Ui/Typography/Text';
+import { Icon } from '../../../Components/Ui/Icon/Icon';
+import { Divider } from '../../../Components/Ui/Divider';
 import { useDisclosure } from '@mantine/hooks';
+import { ConfigModal } from './ConfigModal';
 
 export const HomeCard = (props: HomeCardType) => {
     const { icon, title, description, url, rules } = props;
@@ -33,26 +33,7 @@ export const HomeCard = (props: HomeCardType) => {
                 </div>
             </div>
 
-            <Modal
-                opened={opened}
-                onClose={close}
-                centered
-                withCloseButton={false}
-                radius={6}
-                size="xl"
-            >
-                <div className={'flex justify-center items-center flex-col'}>
-                    <div className={'flex justify-center items-center flex-col'}>
-                        <Title className={'justify-center'} text={'Config'} />
-                    </div>
-                </div>
-
-                <div className={'flex flex-col gap-2'}>
-                    <Text>{description}</Text>
-                    <Divider className={'pt-4'} />
-                    <Text weight={'bold'}>{rules}</Text>
-                </div>
-            </Modal>
+            <ConfigModal opened={opened} close={close} />
         </>
     );
 };
