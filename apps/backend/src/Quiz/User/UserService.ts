@@ -1,7 +1,7 @@
 import { prisma } from '../../Core/Prisma/Prisma';
 
-export const UserService = () => {
-    const findOrCreate = async (data: any) => {
+export const UserService = {
+    findOrCreate: async (data: any) => {
         const userExists = await prisma.users.findUnique({
             where: {
                 email: data.email,
@@ -29,7 +29,5 @@ export const UserService = () => {
         return prisma.users.create({
             data: { ...profile },
         });
-    };
-
-    return { findOrCreate };
+    },
 };

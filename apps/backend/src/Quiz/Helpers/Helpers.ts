@@ -27,7 +27,15 @@ export const serializeToken = (token?: string) => {
 
     if (token.includes('Bearer ')) {
         return token;
-    } else {
-        return `Bearer ${token}`;
     }
+
+    return `Bearer ${token}`;
+};
+
+export const removeBearerFromToken = (token: string) => {
+    if (token.includes('Bearer ')) {
+        return token.replace('Bearer ', '');
+    }
+
+    return token;
 };

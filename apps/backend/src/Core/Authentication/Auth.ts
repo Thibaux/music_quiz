@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
-import Result from '../../Quiz/Result/Result';
+import { removeBearerFromToken } from '../../Quiz/Helpers/Helpers';
+import { Request } from 'express';
 
 type JwtPayload = {
     user?: any;
@@ -13,23 +14,28 @@ const jwtConfig = {
 const Auth = {
     setToken: (user: any): string => jwt.sign({ user: user }, privateKey, jwtConfig),
 
-    verifyToken: async (token: string): Promise<Result> => {
+    verifyToken: async (token?: string): Promise<JwtPayload> => {
         if (!token) {
-            return new Result().asFailed('No token provided');
+            throw Error('Login failed: no token provided');
         }
 
         try {
-            jwt.verify(token, privateKey) as JwtPayload;
-
-            return new Result().asPassed();
+            return jwt.verify(removeBearerFromToken(token), privateKey) as JwtPayload;
         } catch (err) {
-            return new Result().asFailed(err.message);
+            throw Error('Login failed: ' + err.message);
         }
     },
 
-    decodeToken: async (token: string) => {
-        const data = jwt.verify(token, privateKey) as JwtPayload;
-        return data?.user;
+    decodeToken: async (req: Request) => {
+        const token = req.headers?.authorization;
+
+        if (!token) {
+            throw Error('Login failed: no token provided');
+        }
+
+        const data = jwt.verify(removeBearerFromToken(token), privateKey) as JwtPayload;
+
+        return data.user;
     },
 };
 

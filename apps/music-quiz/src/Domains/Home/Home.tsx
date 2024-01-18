@@ -7,8 +7,8 @@ import { useAuth } from '../../Hooks/useAuth';
 
 export const Home = () => {
     const http = useHttp();
-    const [data, setData] = useState(null as any);
     const { login } = useAuth();
+    const [data, setData] = useState(null as any);
 
     useEffect(() => {
         login();

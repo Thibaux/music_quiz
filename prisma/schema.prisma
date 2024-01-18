@@ -9,6 +9,7 @@ datasource db {
 
 model users {
   id          Int             @id @default(autoincrement())
+  uuid        String          @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   quizzes     quiz_sessions[]
   email       String          @unique
   name        String?
@@ -23,6 +24,7 @@ model quiz_sessions {
   id         Int      @id @default(autoincrement())
   host_user  users    @relation(fields: [host_id], references: [id])
   host_id    Int
+  status     String
   type       String
   hash       String
   config     Json

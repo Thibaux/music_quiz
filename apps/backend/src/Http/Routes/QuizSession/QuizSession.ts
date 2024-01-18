@@ -5,11 +5,14 @@ import {
     CreateValidation,
     Show,
     ShowValidation,
+    Update,
+    UpdateValidation,
 } from '../../Controllers/QuizSession/QuizSessionController';
 
 const QuizSessionRouter = express.Router();
 
 QuizSessionRouter.get('/:id', validate([ShowValidation]), Show);
+QuizSessionRouter.put('/:id', validate([UpdateValidation]), Update);
 QuizSessionRouter.post('/:type', validate([CreateValidation]), Create);
 
 export default QuizSessionRouter;
