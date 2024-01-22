@@ -1,9 +1,11 @@
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
 
 export const Show = async (req: Request, res: Response) => {
-	const body = {
-		status: 'Healthy',
-	};
+    const body = {
+        data: {
+            message: 'Healthy',
+        },
+    };
 
-	res.json(body);
+    res.json(body);
 };

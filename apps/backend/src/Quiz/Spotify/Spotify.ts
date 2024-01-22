@@ -21,7 +21,7 @@ const Spotify = {
         }).get(`me`);
 
         return {
-            spotifyUser: profile.data,
+            spotifyUser: profile,
             spotifyToken: serializeToken(data.body.access_token),
         };
     },

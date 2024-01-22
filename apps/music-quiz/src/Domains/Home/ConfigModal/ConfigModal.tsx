@@ -1,7 +1,8 @@
 import { Button, Modal } from '@mantine/core';
 import { Title } from '../../../Components/Ui/Typography/Title';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useHttp } from '../../../Hooks/useHttp';
+import { Content } from './Content';
 
 type Props = {
     opened: boolean;
@@ -11,20 +12,7 @@ type Props = {
 export const ConfigModal = (props: Props) => {
     const { opened, close } = props;
     const http = useHttp();
-    const [data, setData] = useState(null as any);
-    const [isDisabled, setIsDisabled] = useState(true);
-
-    useEffect(() => {
-        http.get('quiz-session/config')
-            .then((res) => setData(res.data.data))
-            .catch((err) => console.log(err.response?.data?.data));
-    }, []);
-
-    if (!data) {
-        return null;
-    }
-
-    console.log(data);
+    const [playlistId, setPlaylistId] = useState(null);
 
     return (
         <Modal
@@ -41,17 +29,10 @@ export const ConfigModal = (props: Props) => {
                 <Title className={'pl-10 justify-start'} text={'Config'} />
             </div>
 
-            <div className={'flex bg-gray-300 gap-12 p-8 justify-center'}>
-                <div className={'flex flex-col  h-[20rem] w-[10rem] gap-2'}>
-                    <div className={'flex justify-center items-start pt-4'}>left</div>
-                </div>
-                <div className={'flex flex-col  h-[20rem] w-[10rem] gap-2'}>
-                    <div className={'flex justify-center items-start pt-4'}>right</div>
-                </div>
-            </div>
+            <Content handleClick={(id: any) => setPlaylistId(id)} />
 
             <div className={'flex flex-col justify-center items-end bg-gray-400 pr-10  py-4'}>
-                <Button disabled={isDisabled} variant="filled">
+                <Button disabled={!playlistId} variant="filled">
                     Start quiz
                 </Button>
             </div>

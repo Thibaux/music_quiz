@@ -5,7 +5,7 @@ import { Text } from '../../../Components/Ui/Typography/Text';
 import { Icon } from '../../../Components/Ui/Icon/Icon';
 import { Divider } from '../../../Components/Ui/Divider';
 import { useDisclosure } from '@mantine/hooks';
-import { ConfigModal } from './ConfigModal';
+import { ConfigModal } from '../ConfigModal/ConfigModal';
 
 export const HomeCard = (props: HomeCardType) => {
     const { icon, title, description, url, rules } = props;

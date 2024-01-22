@@ -1,9 +1,9 @@
 import express from 'express';
-import { Index, IndexValidation } from '../../../Controllers/QuizSession/Config/ConfigController';
+import { Update, UpdateValidation } from '../../../Controllers/QuizSession/Config/ConfigController';
 import { validate } from '../../../Validation/Validation';
 
 const ConfigRouter = express.Router();
 
-ConfigRouter.get('/config', validate([IndexValidation]), Index);
+ConfigRouter.get('/config', validate([UpdateValidation]), Update);
 
 export default ConfigRouter;
