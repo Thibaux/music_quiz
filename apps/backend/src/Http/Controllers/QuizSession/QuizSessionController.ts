@@ -28,7 +28,7 @@ export const CreateValidation = param('type')
     .withMessage('Type is not one of: ' + toArray(QuizzesEnum).toString());
 
 export const Show = asyncHandler(async (req: Request, res: Response) => {
-    const session = await QuizSessionService.getSession(Number(req.params.id));
+    const session = await QuizSessionService.findSession(Number(req.params.id));
 
     success(session, res);
 });
@@ -40,7 +40,7 @@ export const Update = asyncHandler(async (req: Request, res: Response) => {
         error('Could not update quiz because user is not known.', res);
     }
 
-    const session = await QuizSessionService.getSession(Number(req.params.id));
+    const session = await QuizSessionService.findSession(Number(req.params.id));
 
     const updatedSession = QuizSessionService.updateSession(session);
 

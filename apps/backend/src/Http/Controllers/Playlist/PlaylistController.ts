@@ -4,6 +4,7 @@ import asyncHandler from 'express-async-handler';
 import Auth from '../../../Core/Authentication/Auth';
 import { SpotifyClient } from '../../../Core/Http/SpotifyClient';
 import { success } from '../../Helpers/ResponseHelpers';
+import QuizSessionService from '../../../Quiz/QuizSessions/QuizSessionService';
 
 export const SearchValidation = query('term')
     .exists()
@@ -16,14 +17,22 @@ export const Search = asyncHandler(async (req: Request, res: Response) => {
 
     const data = await SpotifyClient.init(user).get(`search?q=${term}&type=playlist`);
 
-    const playlists = data.playlists.items.map((playlist: any) => {
-        return {
+    const session = (await QuizSessionService.findSessionByHost(user)) as any;
+
+    let playlists = [];
+
+    data.playlists.items.forEach((playlist: any) => {
+        if (playlist.tracks.total < session.config.number_of_tracks) {
+            return;
+        }
+
+        playlists.push({
             id: playlist.id,
             title: playlist.name,
             image: playlist.images[0].url,
             total_amount_tracks: playlist.tracks.total,
             spotify_url: playlist.external_urls.spotify,
-        };
+        });
     });
 
     success(playlists, res);
