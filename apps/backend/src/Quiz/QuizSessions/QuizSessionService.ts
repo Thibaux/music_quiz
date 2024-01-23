@@ -1,7 +1,30 @@
 import { randomBytes } from 'crypto';
 import { prisma } from '../../Core/Prisma/Prisma';
+import { QuizStatus } from './Status';
+import ConfigService from './Config/ConfigService';
 
 const QuizSessionService = {
+    createSession: async (user: any, type: string, playlist: any) => {
+        const quiz = await prisma.quiz_sessions.create({
+            data: {
+                host_user: { connect: { id: user.id } },
+                type: type,
+                status: QuizStatus.CREATED,
+                hash: QuizSessionService.hashGenerator(),
+                config: {
+                    number_of_tracks: ConfigService.default().number_of_tracks,
+                    playlist_id: playlist.id,
+                },
+            },
+        });
+
+        if (!quiz) {
+            throw Error('Could not create quiz.');
+        }
+
+        return quiz;
+    },
+
     findSession: async (session_id: number) => {
         const session = await prisma.quiz_sessions.findUnique({
             where: { id: session_id },

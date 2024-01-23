@@ -1,9 +1,8 @@
 const ConfigService = {
-    getConfig: () => {
+    default: () => {
         return {
-            type: 'default',
             number_of_tracks: 9,
-            playlist_id: '4BmIp9LV6bjaygjrUdJc0n',
+            playlist_id: '4BmIp9LV6bjaygjrUdJc0n', // veronica playlist
         };
     },
 };

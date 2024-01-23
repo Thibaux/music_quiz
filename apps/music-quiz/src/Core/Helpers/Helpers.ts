@@ -1,1 +1,1 @@
-export const sleep = () => new Promise((resolve) => setTimeout(resolve, 2000));
+export const getSessionId = () => window.location.pathname.split('/').slice(-1)[0];

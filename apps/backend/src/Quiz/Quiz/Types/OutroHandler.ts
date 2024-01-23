@@ -1,8 +1,10 @@
 import { randomNum } from '../../Helpers/Helpers';
 import { prisma } from '../../../Core/Prisma/Prisma';
+import { QuizzesEnum } from '../QuizzesEnum';
 
 const outro = {
     id: randomNum(),
+    type: QuizzesEnum.OUTROS,
     title: "Outro's",
     description:
         'Guess songs based on the last 30 seconds of the song. This quiz will consist of 9 songs.',

@@ -2,9 +2,11 @@ import { BaseQuizHandlerType } from '../Base/BaseQuizHandlerType';
 import { randomNum } from '../../Helpers/Helpers';
 import { HomeCardType } from '../../../../../../lib/Types/Domains/Home/Types';
 import { prisma } from '../../../Core/Prisma/Prisma';
+import { QuizzesEnum } from '../QuizzesEnum';
 
 const chorus = {
     id: randomNum(),
+    type: QuizzesEnum.CHORUS,
     title: 'Chorus',
     description: 'Guess songs based on chorus. This quiz will consist of 9 songs.',
     rules: 'Every correctly guessed song earns you 1 point.',

@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import Logger from '../../../Core/Logger/Logger';
 
 type Error = {
     status?: number;
@@ -13,6 +14,8 @@ export const ErrorHandler = (error: Error, req: Request, res: Response, _next: N
             message: error.message,
         },
     };
+
+    Logger.log().info(error.message);
 
     return res.status(statusCode).json(response);
 };

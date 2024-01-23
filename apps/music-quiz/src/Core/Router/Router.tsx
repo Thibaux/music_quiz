@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router';
 import { Login } from '../../Domains/Authentication/Login';
 import { Home } from '../../Domains/Home/Home';
 import { Layout } from '../../Layout/Layout';
-import { Intros } from '../../Domains/Quizzes/Types/Intros';
+import { SessionOverview } from '../../Domains/Session/SessionOverview';
 
 const Router = () => {
     return (
@@ -13,10 +13,7 @@ const Router = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/home" element={<Home />} />
 
-                <Route path="/quiz/intros" element={<Intros />} />
-
-                {/*<Route path={"/welcome"} element={<WelcomeComponent/>}></Route>*/}
-                {/*<Route path={"/UI"} element={Ui2()}></Route>*/}
+                <Route path="/sessions/:id" element={<SessionOverview />} />
             </Routes>
         </Layout>
     );

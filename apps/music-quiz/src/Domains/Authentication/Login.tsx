@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { PageContainer } from '../../Layout/Page/PageContainer';
-import { Card } from '../../Components/Ui/Cards/Card';
 import recordsImage from '../../Assets/images/records.jpg';
 import { useAuth } from '../../Hooks/useAuth';
+import { LoginCard } from './Components/LoginCard';
 
 export const Login = () => {
     const { clearToken } = useAuth();
@@ -15,7 +15,7 @@ export const Login = () => {
 
     return (
         <PageContainer>
-            <Card
+            <LoginCard
                 text={'Log in with Spotify to get started'}
                 image={recordsImage}
                 onClick={handleClick}

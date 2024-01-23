@@ -1,9 +1,11 @@
 import { BaseQuizHandlerType } from '../Base/BaseQuizHandlerType';
 import { randomNum } from '../../Helpers/Helpers';
 import { HomeCardType } from '../../../../../../lib/Types/Domains/Home/Types';
+import { QuizzesEnum } from '../QuizzesEnum';
 
 const intro = {
     id: randomNum(),
+    type: QuizzesEnum.INTROS,
     title: "Intro's",
     description:
         'Guess songs based on the first 30 seconds of the song. This quiz will consist of 9 songs.',

@@ -1,18 +1,18 @@
 import React from 'react';
 import { Title } from '../../../Components/Ui/Typography/Title';
 import { HomeCardType } from '../../../../../../lib/Types/Domains/Home/Types';
-import { Text } from '../../../Components/Ui/Typography/Text';
+import { Text, WeightTypes } from '../../../Components/Ui/Typography/Text';
 import { Icon } from '../../../Components/Ui/Icon/Icon';
 import { Divider } from '../../../Components/Ui/Divider';
 import { useDisclosure } from '@mantine/hooks';
 import { ConfigModal } from '../ConfigModal/ConfigModal';
 
 export const HomeCard = (props: HomeCardType) => {
-    const { icon, title, description, url, rules } = props;
+    const { type, icon, title, description, rules } = props;
     const [opened, { open, close }] = useDisclosure(false);
 
     return (
-        <>
+        <div>
             <div
                 onClick={open}
                 className={
@@ -28,12 +28,12 @@ export const HomeCard = (props: HomeCardType) => {
                     <div className={'flex flex-col gap-2'}>
                         <Text>{description}</Text>
                         <Divider className={'pt-4'} />
-                        <Text weight={'bold'}>{rules}</Text>
+                        <Text weight={WeightTypes.bold}>{rules}</Text>
                     </div>
                 </div>
             </div>
 
-            <ConfigModal opened={opened} close={close} />
-        </>
+            <ConfigModal opened={opened} close={close} quizType={type} />
+        </div>
     );
 };

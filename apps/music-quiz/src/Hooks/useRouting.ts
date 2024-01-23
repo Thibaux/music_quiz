@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-export const useRouting = () => {
+const useRouting = () => {
     const navigate = useNavigate();
 
     const replace = (url: string) => {
@@ -12,3 +12,5 @@ export const useRouting = () => {
         replace: replace,
     };
 };
+
+export default useRouting;

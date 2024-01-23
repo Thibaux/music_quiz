@@ -4,9 +4,14 @@ import { TextInput } from '@mantine/core';
 import { useHttp } from '../../../Hooks/useHttp';
 import Image from '../../../Components/Ui/Image/Image';
 
-export const Content = () => {
+type Props = {
+    playlist: any;
+    setPlaylist: (playlist: any) => void;
+};
+
+export const Content = (props: Props) => {
+    const { playlist, setPlaylist } = props;
     const http = useHttp();
-    const [playlist, setPlaylist] = useState(null as any);
     const [results, setResults] = useState([]);
 
     const handleChange = async (event: any) => {

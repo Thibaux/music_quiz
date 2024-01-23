@@ -1,5 +1,5 @@
 import React from 'react';
-import { Title } from '../Typography/Title';
+import { Title } from '../../../Components/Ui/Typography/Title';
 
 type Props = {
     image: string;
@@ -7,7 +7,7 @@ type Props = {
     onClick: () => void;
 };
 
-export const Card = (props: Props) => {
+export const LoginCard = (props: Props) => {
     const { image, text, onClick } = props;
 
     return (

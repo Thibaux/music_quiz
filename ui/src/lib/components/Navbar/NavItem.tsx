@@ -1,4 +1,4 @@
-import { useRouting } from '../../../../../apps/music-quiz/src/Hooks/useRouting';
+import useRouting from '../../../../../apps/music-quiz/src/Hooks/useRouting';
 
 type Props = {
     item: any;

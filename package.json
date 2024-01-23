@@ -35,7 +35,8 @@
     "react-router-dom": "^6.21.0",
     "spotify-web-api-node": "^5.0.2",
     "tslib": "^2.3.0",
-    "typography": "^0.16.24"
+    "typography": "^0.16.24",
+    "winston": "^3.11.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",

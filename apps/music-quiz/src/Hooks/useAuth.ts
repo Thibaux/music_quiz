@@ -1,5 +1,5 @@
 import { useHttp } from './useHttp';
-import { useRouting } from './useRouting';
+import useRouting from './useRouting';
 
 export const useAuth = () => {
     const http = useHttp();
