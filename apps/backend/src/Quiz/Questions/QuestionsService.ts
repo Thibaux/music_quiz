@@ -1,12 +1,20 @@
-export const QuestionsService = {
-    generate: (quiz: any) => {
-        const questions = [
-            {
-                id: 1,
-                right_answer: 'JAN',
-            },
-        ];
+import QuizStorage from '../Storage/QuizStorage';
+import { OptionsService } from '../Options/OptionsService';
 
-        return questions;
+export const QuestionsService = {
+    generate: async (question_id: number, quiz: any) => {
+        const session = await QuizStorage.sessions.get(quiz.id);
+
+        const newQuestion = {
+            [question_id]: {
+                options: OptionsService.generateOptions(quiz),
+            },
+        };
+
+        await QuizStorage.sessions.set(quiz.id, {
+            questions: [newQuestion, ...session],
+        });
+
+        return newQuestion;
     },
 };

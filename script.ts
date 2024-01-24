@@ -1,4 +1,8 @@
-async function main() {}
+import { randomNum } from './apps/backend/src/Quiz/Helpers/Helpers';
+
+async function main() {
+    console.log(randomNum());
+}
 
 main();
 // .then(async () => {

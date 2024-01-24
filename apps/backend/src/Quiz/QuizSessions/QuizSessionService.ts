@@ -5,18 +5,19 @@ import ConfigService from './Config/ConfigService';
 
 const QuizSessionService = {
     createSession: async (user: any, type: string, playlist: any) => {
-        const quiz = await prisma.quiz_sessions.create({
-            data: {
-                host_user: { connect: { id: user.id } },
-                type: type,
-                status: QuizStatus.CREATED,
-                hash: QuizSessionService.hashGenerator(),
-                config: {
-                    number_of_tracks: ConfigService.default().number_of_tracks,
-                    playlist_id: playlist.id,
-                },
+        const data = {
+            host_user: { connect: { id: user.id } },
+            type: type,
+            status: QuizStatus.CREATED,
+            hash: QuizSessionService.hashGenerator(),
+            config: {
+                number_of_tracks: ConfigService.default().number_of_tracks,
+                number_of_options: ConfigService.default().number_of_options,
+                playlist_id: playlist.id,
             },
-        });
+        };
+
+        const quiz = await prisma.quiz_sessions.create({ data: data });
 
         if (!quiz) {
             throw Error('Could not create quiz.');

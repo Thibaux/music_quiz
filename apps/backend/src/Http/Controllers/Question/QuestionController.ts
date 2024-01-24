@@ -1,18 +1,19 @@
 import { Request, Response } from 'express';
-import { query } from 'express-validator';
+import { param } from 'express-validator';
 import asyncHandler from 'express-async-handler';
 import { success } from '../../Helpers/ResponseHelpers';
-import QuizStorage from '../../../Quiz/Storage/QuizStorage';
+import QuizSessionService from '../../../Quiz/QuizSessions/QuizSessionService';
 
-export const IndexValidation = query('session_id')
+export const ShowParamValidation = param('id')
     .exists()
     .isNumeric()
     .not()
     .isEmpty()
-    .withMessage('Session ID is not provided.');
+    .withMessage('ID is not provided.');
 
-export const Index = asyncHandler(async (req: Request, res: Response) => {
-    const questions = await QuizStorage.sessions.get(Number(req.query.session_id));
+export const Show = asyncHandler(async (req: Request, res: Response) => {
+    const quiz = await QuizSessionService.findSession(Number(req.query.session_id));
+    // const question = QuestionsService.generate(Number(req.params.id), quiz);
 
-    success(questions, res);
+    success(quiz, res);
 });

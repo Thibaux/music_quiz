@@ -1,4 +1,4 @@
-export const randomNum = () => Math.floor(Math.random() * (99 - 1) + 1);
+export const randomNum = (limit?: number) => Math.floor(Math.random() * (limit ?? 99 - 1) + 1);
 
 export const toArray = (object: any) => Object.values(object);
 

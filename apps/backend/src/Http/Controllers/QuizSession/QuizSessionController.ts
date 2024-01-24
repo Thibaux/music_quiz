@@ -6,8 +6,6 @@ import { QuizzesEnum } from '../../../Quiz/Quiz/QuizzesEnum';
 import QuizSessionService from '../../../Quiz/QuizSessions/QuizSessionService';
 import asyncHandler from 'express-async-handler';
 import { created, error, success } from '../../Helpers/ResponseHelpers';
-import QuizStorage from '../../../Quiz/Storage/QuizStorage';
-import { QuestionsService } from '../../../Quiz/Questions/QuestionsService';
 
 export const ShowValidation = param('id')
     .exists()
@@ -47,9 +45,6 @@ export const Create = asyncHandler(async (req: Request, res: Response) => {
     if (!user) error('Could not create quiz because user is not known.', res);
 
     const quiz = await QuizSessionService.createSession(user, req.body.type, req.body.playlist);
-    const questions = QuestionsService.generate(quiz);
 
-    await QuizStorage.sessions.set(String(quiz.id), questions);
-
-    created(questions, res);
+    created(quiz, res);
 });
