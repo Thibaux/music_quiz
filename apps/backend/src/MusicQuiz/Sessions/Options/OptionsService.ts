@@ -1,4 +1,4 @@
-import { randomNum } from '../Helpers/Helpers';
+import { randomNum } from '../../Helpers/Helpers';
 
 export const OptionsService = {
     generateOptions: (quiz: any) => {

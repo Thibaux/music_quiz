@@ -1,8 +1,8 @@
-import QuizStorage from '../Storage/QuizStorage';
+import QuizStorage from '../../Storage/QuizStorage';
 import { OptionsService } from '../Options/OptionsService';
 
 export const QuestionsService = {
-    generate: async (question_id: number, quiz: any) => {
+    get: async (question_id: number, quiz: any) => {
         const session = await QuizStorage.sessions.get(quiz.id);
 
         const newQuestion = {

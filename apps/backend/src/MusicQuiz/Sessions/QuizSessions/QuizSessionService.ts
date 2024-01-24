@@ -1,5 +1,5 @@
 import { randomBytes } from 'crypto';
-import { prisma } from '../../Core/Prisma/Prisma';
+import { prisma } from '../../../Core/Prisma/Prisma';
 import { QuizStatus } from './Status';
 import ConfigService from './Config/ConfigService';
 
@@ -32,7 +32,7 @@ const QuizSessionService = {
         });
 
         if (!session) {
-            throw Error('Quiz session with id: ' + session_id + ' not found');
+            throw Error('MusicQuiz session with id: ' + session_id + ' not found');
         }
 
         return session;
@@ -44,7 +44,7 @@ const QuizSessionService = {
         });
 
         if (!session) {
-            throw Error('Quiz session for user: ' + user.name + ' not found');
+            throw Error('MusicQuiz session for user: ' + user.name + ' not found');
         }
 
         return session;

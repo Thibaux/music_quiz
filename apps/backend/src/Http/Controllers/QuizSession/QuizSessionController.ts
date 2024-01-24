@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { body, param } from 'express-validator';
-import { toArray } from '../../../Quiz/Helpers/Helpers';
+import { toArray } from '../../../MusicQuiz/Helpers/Helpers';
 import Auth from '../../../Core/Authentication/Auth';
-import { QuizzesEnum } from '../../../Quiz/Quiz/QuizzesEnum';
-import QuizSessionService from '../../../Quiz/QuizSessions/QuizSessionService';
+import { QuizzesEnum } from '../../../MusicQuiz/Quiz/QuizzesEnum';
+import QuizSessionService from '../../../MusicQuiz/Sessions/QuizSessions/QuizSessionService';
 import asyncHandler from 'express-async-handler';
 import { created, error, success } from '../../Helpers/ResponseHelpers';
 
@@ -17,7 +17,7 @@ export const ShowValidation = param('id')
 export const UpdateValidation = param('id')
     .exists()
     .isNumeric()
-    .withMessage('Quiz session ID is not provided.');
+    .withMessage('MusicQuiz session ID is not provided.');
 
 export const CreateValidation = body('type')
     .exists()

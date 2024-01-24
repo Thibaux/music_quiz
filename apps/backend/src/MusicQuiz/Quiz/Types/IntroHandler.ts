@@ -28,7 +28,7 @@ export const IntroHandler = (): BaseQuizHandlerType => {
         //     const quiz = await prisma.quiz_sessions.findFirstOrThrow(id);
         //     return { ...intro, quiz };
         // } catch (e) {
-        //     return { message: 'Quiz not found.' };
+        //     return { message: 'MusicQuiz not found.' };
         // }
     };
 

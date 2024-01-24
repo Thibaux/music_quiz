@@ -1,4 +1,4 @@
-import { randomNum } from './apps/backend/src/Quiz/Helpers/Helpers';
+import { randomNum } from './apps/backend/src/MusicQuiz/Helpers/Helpers';
 
 async function main() {
     console.log(randomNum());

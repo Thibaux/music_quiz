@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { param } from 'express-validator';
-import { toArray } from '../../../Quiz/Helpers/Helpers';
+import { toArray } from '../../../MusicQuiz/Helpers/Helpers';
 import { error, success } from '../../Helpers/ResponseHelpers';
-import { QuizzesEnum } from '../../../Quiz/Quiz/QuizzesEnum';
-import { QuizzesService } from '../../../Quiz/Quiz/QuizzesService';
+import { QuizzesEnum } from '../../../MusicQuiz/Quiz/QuizzesEnum';
+import { QuizzesService } from '../../../MusicQuiz/Quiz/QuizzesService';
 
 export const Index = async (req: Request, res: Response) => {
     const response = QuizzesService()

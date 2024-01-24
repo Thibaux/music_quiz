@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { param } from 'express-validator';
 import asyncHandler from 'express-async-handler';
 import { success } from '../../Helpers/ResponseHelpers';
-import QuizSessionService from '../../../Quiz/QuizSessions/QuizSessionService';
+import QuizSessionService from '../../../MusicQuiz/Sessions/QuizSessions/QuizSessionService';
 
 export const ShowParamValidation = param('id')
     .exists()
@@ -13,7 +13,7 @@ export const ShowParamValidation = param('id')
 
 export const Show = asyncHandler(async (req: Request, res: Response) => {
     const quiz = await QuizSessionService.findSession(Number(req.query.session_id));
-    // const question = QuestionsService.generate(Number(req.params.id), quiz);
+    // const question = QuestionsService.get(Number(req.params.id), quiz);
 
     success(quiz, res);
 });

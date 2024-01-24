@@ -3,7 +3,7 @@ import { PageContainer } from '../../../Layout/Page/PageContainer';
 import { QuizCard } from '../Components/QuizCard';
 import { Title } from '../../../Components/Ui/Typography/Title';
 import { useHttp } from '../../../Hooks/useHttp';
-import { QuizzesEnum } from '../../../../../backend/src/Quiz/Quiz/QuizzesEnum';
+import { QuizzesEnum } from '../../../../../backend/src/MusicQuiz/Quiz/QuizzesEnum';
 
 export const Intros = () => {
     const http = useHttp();

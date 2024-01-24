@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { removeBearerFromToken } from '../../Quiz/Helpers/Helpers';
+import { removeBearerFromToken } from '../../MusicQuiz/Helpers/Helpers';
 import { Request } from 'express';
 
 type JwtPayload = {

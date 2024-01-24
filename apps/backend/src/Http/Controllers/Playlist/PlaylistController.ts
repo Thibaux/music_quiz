@@ -4,7 +4,7 @@ import asyncHandler from 'express-async-handler';
 import Auth from '../../../Core/Authentication/Auth';
 import { SpotifyClient } from '../../../Core/Http/SpotifyClient';
 import { success } from '../../Helpers/ResponseHelpers';
-import QuizSessionService from '../../../Quiz/QuizSessions/QuizSessionService';
+import QuizSessionService from '../../../MusicQuiz/Sessions/QuizSessions/QuizSessionService';
 
 export const SearchValidation = query('term')
     .exists()

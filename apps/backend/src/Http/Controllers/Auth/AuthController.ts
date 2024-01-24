@@ -2,8 +2,8 @@ import { Request, Response } from 'express';
 import SpotifyWebApi from 'spotify-web-api-node';
 import querystring from 'querystring';
 import { body } from 'express-validator';
-import Spotify from '../../../Quiz/Spotify/Spotify';
-import { UserService } from '../../../Quiz/User/UserService';
+import Spotify from '../../../MusicQuiz/Spotify/Spotify';
+import { UserService } from '../../../MusicQuiz/User/UserService';
 import { success } from '../../Helpers/ResponseHelpers';
 import Auth from '../../../Core/Authentication/Auth';
 
