@@ -6,6 +6,7 @@ import { QuizzesEnum } from '../../../MusicQuiz/Quiz/QuizzesEnum';
 import QuizSessionService from '../../../MusicQuiz/Sessions/QuizSessions/QuizSessionService';
 import asyncHandler from 'express-async-handler';
 import { created, error, success } from '../../Helpers/ResponseHelpers';
+import { SongsManager } from '../../../MusicQuiz/Guessables/Songs/SongsManager';
 
 export const ShowValidation = param('id')
     .exists()
@@ -45,6 +46,8 @@ export const Create = asyncHandler(async (req: Request, res: Response) => {
     if (!user) error('Could not create quiz because user is not known.', res);
 
     const quiz = await QuizSessionService.createSession(user, req.body.type, req.body.playlist);
+
+    SongsManager.builder.build(quiz);
 
     created(quiz, res);
 });
