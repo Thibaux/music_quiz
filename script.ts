@@ -1,7 +1,10 @@
-import { randomNum } from './apps/backend/src/MusicQuiz/Helpers/Helpers';
+import { QuestionsBuilder } from './apps/backend/src/MusicQuiz/Sessions/Questions/QuestionsBuilder';
+import QuizSessionService from './apps/backend/src/MusicQuiz/Sessions/QuizSessions/QuizSessionService';
 
 async function main() {
-    console.log(randomNum());
+    const session = await QuizSessionService.findSession(15);
+
+    QuestionsBuilder.build(session);
 }
 
 main();
