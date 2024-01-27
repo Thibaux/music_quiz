@@ -40,7 +40,10 @@ const QuizSessionService = {
 
     findSessionByHost: async (user: any) => {
         const session = await prisma.quiz_sessions.findFirst({
-            where: { host_id: user.id },
+            where: {
+                host_id: user.id,
+                status: QuizStatus.STARTED,
+            },
         });
 
         if (!session) {

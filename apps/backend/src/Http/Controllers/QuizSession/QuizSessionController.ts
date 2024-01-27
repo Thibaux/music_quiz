@@ -5,7 +5,7 @@ import Auth from '../../../Core/Authentication/Auth';
 import { QuizzesEnum } from '../../../MusicQuiz/Quiz/QuizzesEnum';
 import QuizSessionService from '../../../MusicQuiz/Sessions/QuizSessions/QuizSessionService';
 import asyncHandler from 'express-async-handler';
-import { created, error, success } from '../../Helpers/ResponseHelpers';
+import { created, success } from '../../Helpers/ResponseHelpers';
 import { SongsManager } from '../../../MusicQuiz/Guessables/Songs/SongsManager';
 
 export const ShowValidation = param('id')
@@ -32,9 +32,6 @@ export const Show = asyncHandler(async (req: Request, res: Response) => {
 });
 
 export const Update = asyncHandler(async (req: Request, res: Response) => {
-    const user = await Auth.decodeToken(req);
-    if (!user) error('Could not update quiz because user is not known.', res);
-
     const session = await QuizSessionService.findSession(Number(req.params.id));
     const updatedSession = QuizSessionService.updateSession(session);
 
@@ -43,8 +40,6 @@ export const Update = asyncHandler(async (req: Request, res: Response) => {
 
 export const Create = asyncHandler(async (req: Request, res: Response) => {
     const user = await Auth.decodeToken(req);
-    if (!user) error('Could not create quiz because user is not known.', res);
-
     const quiz = await QuizSessionService.createSession(user, req.body.type, req.body.playlist);
 
     SongsManager.builder.build(quiz);

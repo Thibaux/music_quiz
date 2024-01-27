@@ -14,13 +14,13 @@ const jwtConfig = {
 const Auth = {
     setToken: (user: any): string => jwt.sign({ user: user }, privateKey, jwtConfig),
 
-    verifyToken: async (token?: string): Promise<JwtPayload> => {
+    verifyToken: async (token?: string) => {
         if (!token) {
             throw Error('Login failed: no token provided');
         }
 
         try {
-            return jwt.verify(removeBearerFromToken(token), privateKey) as JwtPayload;
+            jwt.verify(removeBearerFromToken(token), privateKey) as JwtPayload;
         } catch (err) {
             throw Error('Login failed: ' + err.message);
         }
@@ -33,9 +33,12 @@ const Auth = {
             throw Error('Login failed: no token provided');
         }
 
-        const data = jwt.verify(removeBearerFromToken(token), privateKey) as JwtPayload;
-
-        return data.user;
+        try {
+            const data = jwt.verify(removeBearerFromToken(token), privateKey) as JwtPayload;
+            return data.user;
+        } catch (err) {
+            throw Error('Authentication failed: ' + err.message);
+        }
     },
 };
 
