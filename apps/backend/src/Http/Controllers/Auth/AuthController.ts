@@ -17,11 +17,15 @@ export const LoginValidation = body('code')
 export const Login = async (req: Request, res: Response) => {
     const { code } = req.body;
 
-    const { spotifyUser, spotifyToken } = await Spotify.login(code);
-    const user = await UserService.findOrCreate(spotifyUser);
+    const spotifyUser = await Spotify.login(code);
+    let user = await UserService.findByEmail(spotifyUser);
 
-    user['spotify_token'] = spotifyToken;
+    if (!user) {
+        user = await UserService.create(spotifyUser);
+    }
+
     const token = Auth.setToken(user);
+    await UserService.update(user, spotifyUser);
 
     return success({ token }, res);
 };
@@ -59,7 +63,9 @@ export const Callback = (req: Request, res: Response) => {
         );
     } else {
         const token = Buffer.from(
-            process.env.SPOTIFY_SPOTIFY_REDIRECT_URI + ':' + process.env.SPOTIFY_REDIRECT_URI
+            process.env.SPOTIFY_SPOTIFY_REDIRECT_URI +
+                ':' +
+                process.env.SPOTIFY_REDIRECT_URI
         ).toString('base64');
 
         const authOptions = {

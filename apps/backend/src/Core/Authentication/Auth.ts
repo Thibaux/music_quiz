@@ -12,7 +12,8 @@ const jwtConfig = {
 };
 
 const Auth = {
-    setToken: (user: any): string => jwt.sign({ user: user }, privateKey, jwtConfig),
+    setToken: (user: any): string =>
+        jwt.sign({ user: user }, privateKey, jwtConfig),
 
     verifyToken: async (token?: string) => {
         if (!token) {
@@ -34,7 +35,10 @@ const Auth = {
         }
 
         try {
-            const data = jwt.verify(removeBearerFromToken(token), privateKey) as JwtPayload;
+            const data = jwt.verify(
+                removeBearerFromToken(token),
+                privateKey
+            ) as JwtPayload;
             return data.user;
         } catch (err) {
             throw Error('Authentication failed: ' + err.message);

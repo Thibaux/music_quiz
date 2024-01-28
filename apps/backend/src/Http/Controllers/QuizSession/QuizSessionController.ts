@@ -6,6 +6,7 @@ import { QuizzesEnum } from '../../../MusicQuiz/Quiz/QuizzesEnum';
 import QuizSessionService from '../../../MusicQuiz/Sessions/QuizSessions/QuizSessionService';
 import asyncHandler from 'express-async-handler';
 import { created, success } from '../../Helpers/ResponseHelpers';
+import { UserService } from '../../../MusicQuiz/User/UserService';
 import { QuestionsBuilder } from '../../../MusicQuiz/Sessions/Questions/QuestionsBuilder';
 
 export const ShowValidation = [
@@ -58,14 +59,16 @@ export const Update = asyncHandler(async (req: Request, res: Response) => {
 });
 
 export const Create = asyncHandler(async (req: Request, res: Response) => {
-    const user = await Auth.decodeToken(req);
+    const { id } = await Auth.decodeToken(req);
+
     const session = await QuizSessionService.createSession(
-        user,
+        id,
         req.body.type,
         req.body.config
     );
 
-    QuestionsBuilder.build(session);
+    const user = await UserService.find(id);
+    const result = await QuestionsBuilder.build(user);
 
-    created(session, res);
+    created(result, res);
 });

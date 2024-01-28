@@ -7,10 +7,9 @@ export const SpotifyClient = {
     },
 
     init: (config: any) => {
-        const self = SpotifyClient;
-        self.headers['Authorization'] = config.spotify_token;
+        SpotifyClient.headers['Authorization'] = config.spotify_token;
 
-        return self;
+        return SpotifyClient;
     },
 
     get: async (url: string) => {
@@ -22,9 +21,13 @@ export const SpotifyClient = {
     },
 
     post: async (url: string, payload: any = {}) => {
-        const response = await axios.post(SpotifyClient.baseUrl + url, payload, {
-            headers: SpotifyClient.headers,
-        });
+        const response = await axios.post(
+            SpotifyClient.baseUrl + url,
+            payload,
+            {
+                headers: SpotifyClient.headers,
+            }
+        );
         return SpotifyClient.returnResponse(response);
     },
 

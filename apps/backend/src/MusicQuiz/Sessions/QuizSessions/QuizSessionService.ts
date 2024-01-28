@@ -4,15 +4,16 @@ import { QuizStatus } from './Status';
 import ConfigService from './Config/ConfigService';
 
 const QuizSessionService = {
-    createSession: async (user: any, type: string, config: any) => {
+    createSession: async (userId: number, type: string, config: any) => {
         const data = {
-            host_user: { connect: { id: user.id } },
+            host_user: { connect: { id: userId } },
             type: type,
             status: QuizStatus.PENDING,
             hash: QuizSessionService.hashGenerator(),
             config: {
                 number_of_tracks: ConfigService.default().number_of_tracks,
                 number_of_options: ConfigService.default().number_of_options,
+                guessable_type: ConfigService.default().guessable_type,
                 playlist_id: config.playlist_id,
             },
         };
@@ -29,6 +30,7 @@ const QuizSessionService = {
     findSession: async (session_id: number) => {
         const session = await prisma.quiz_sessions.findUnique({
             where: { id: session_id },
+            include: { host_user: true },
         });
 
         if (!session) {

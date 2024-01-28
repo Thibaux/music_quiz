@@ -1,34 +1,41 @@
-export const Builder = {
-    quiz: null as any,
+import Spotify from '../../../Spotify/Spotify';
 
-    init: (quiz: any) => {
-        Builder.quiz = quiz;
+export const Builder = {
+    user: null as any,
+    sessionConfig: null as any,
+
+    init: (user: any) => {
+        Builder.user = user;
+        Builder.sessionConfig = user.quizzes[0].config;
 
         return Builder;
     },
 
-    build: () => {
-        console.log(Builder.quiz.config.playlist_id);
+    build: async () => {
+        const { playlist } = await Spotify.fetchPlaylist(
+            Builder.user,
+            Builder.sessionConfig.playlist_id
+        );
+
+        return playlist;
 
         /*
-    populate redis with =
-     session_id:
+populate redis with =
+session_id:
 [
 {
 id: '',
 title: '',
 artist: '',
 image: '',
-is_correct: false,
 },
 {
 id: '',
 title: '',
 artist: '',
 image: '',
-is_correct: false,
 },
 ]
-     */
+*/
     },
 };
