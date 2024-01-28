@@ -15,9 +15,13 @@ export const Search = asyncHandler(async (req: Request, res: Response) => {
     const user = await Auth.decodeToken(req);
     const term = req.query.term;
 
-    const data = await SpotifyClient.init(user).get(`search?q=${term}&type=playlist`);
+    const data = await SpotifyClient.init(user).get(
+        `search?q=${term}&type=playlist`
+    );
 
-    const session = (await QuizSessionService.findSessionByHost(user)) as any;
+    const session = (await QuizSessionService.findActiveSessionByHost(
+        user
+    )) as any;
 
     let playlists = [];
 

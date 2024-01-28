@@ -14,8 +14,8 @@ export const ShowParamValidation = param('question_id')
 
 export const Show = asyncHandler(async (req: Request, res: Response) => {
     const user = await Auth.decodeToken(req);
-    const quiz = await QuizSessionService.findSessionByHost(user);
-    // const question = QuestionsService.get(Number(req.params.id), quiz);
+    const quiz = await QuizSessionService.findActiveSessionByHost(user);
+    // const question = QuestionsService.generateQuestion(Number(req.params.id), quiz);
 
     success(quiz, res);
 });

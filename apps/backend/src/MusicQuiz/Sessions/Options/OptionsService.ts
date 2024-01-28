@@ -1,4 +1,5 @@
 import { randomNum } from '../../Helpers/Helpers';
+import { GuessableServices } from '../../Guessables/GuessableServices';
 
 export const OptionsService = {
     generateOptions: (quiz: any) => {
@@ -13,18 +14,18 @@ export const OptionsService = {
     },
 };
 
-const generateOption = (quiz: any) => {
+const generateOption = (session: any) => {
     // fetch track from redis
     // redis should be filled with tracks after creating the quiz
     // correct_answers
 
-    return {
-        id: '',
-        title: '',
-        artist: '',
-        image: '',
-        is_correct: false,
-    };
+    /*
+dit in redis
+find by session id
+*/
+
+    const service = GuessableServices.get(session.config.guessable_type);
+    return service.Handler.init(session).handle();
 };
 
 const assignCorrectAnswer = (options: any[], nOfOptions: number): any[] => {

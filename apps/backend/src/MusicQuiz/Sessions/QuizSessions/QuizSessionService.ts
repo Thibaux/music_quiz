@@ -4,16 +4,16 @@ import { QuizStatus } from './Status';
 import ConfigService from './Config/ConfigService';
 
 const QuizSessionService = {
-    createSession: async (user: any, type: string, playlist: any) => {
+    createSession: async (user: any, type: string, config: any) => {
         const data = {
             host_user: { connect: { id: user.id } },
             type: type,
-            status: QuizStatus.CREATED,
+            status: QuizStatus.PENDING,
             hash: QuizSessionService.hashGenerator(),
             config: {
                 number_of_tracks: ConfigService.default().number_of_tracks,
                 number_of_options: ConfigService.default().number_of_options,
-                playlist_id: playlist.id,
+                playlist_id: config.playlist_id,
             },
         };
 
@@ -32,13 +32,15 @@ const QuizSessionService = {
         });
 
         if (!session) {
-            throw Error('MusicQuiz session with id: ' + session_id + ' not found');
+            throw Error(
+                'MusicQuiz session with id: ' + session_id + ' not found'
+            );
         }
 
         return session;
     },
 
-    findSessionByHost: async (user: any) => {
+    findActiveSessionByHost: async (user: any) => {
         const session = await prisma.quiz_sessions.findFirst({
             where: {
                 host_id: user.id,
@@ -47,16 +49,25 @@ const QuizSessionService = {
         });
 
         if (!session) {
-            throw Error('MusicQuiz session for user: ' + user.name + ' not found');
+            throw Error(
+                'MusicQuiz session for user: ' + user.name + ' not found'
+            );
         }
 
         return session;
     },
 
-    updateSession: (session: any) => {
-        console.log(session);
+    update: async (sessionId: number, data: any) => {
+        const result = await prisma.quiz_sessions.update({
+            where: { id: sessionId },
+            data: data,
+        });
 
-        return session;
+        if (result.id !== sessionId) {
+            throw Error('Could not update session with id ' + sessionId);
+        }
+
+        return result;
     },
 
     hashGenerator: () => {

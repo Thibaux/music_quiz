@@ -13,3 +13,13 @@
 {"level":"info","message":"MusicQuiz session with id: 1 not found","service":"user-service"}
 {"level":"info","message":"MusicQuiz session with id: 1 not found","service":"user-service"}
 {"level":"info","message":"MusicQuiz session for user: Thibaux Swildens not found","service":"user-service"}
+{"level":"info","message":"Login failed: jwt expired","service":"user-service"}
+{"level":"info","message":"Login failed: jwt expired","service":"user-service"}
+{"level":"info","message":"MusicQuiz session for user: Thibaux Swildens not found","service":"user-service"}
+{"level":"info","message":"MusicQuiz session for user: Thibaux Swildens not found","service":"user-service"}
+{"level":"info","message":"MusicQuiz session for user: Thibaux Swildens not found","service":"user-service"}
+{"level":"info","message":"MusicQuiz session for user: Thibaux Swildens not found","service":"user-service"}
+{"level":"info","message":"MusicQuiz session for user: Thibaux Swildens not found","service":"user-service"}
+{"level":"info","message":"MusicQuiz session for user: Thibaux Swildens not found","service":"user-service"}
+{"level":"info","message":"MusicQuiz session for user: Thibaux Swildens not found","service":"user-service"}
+{"level":"info","message":"MusicQuiz session for user: Thibaux Swildens not found","service":"user-service"}
